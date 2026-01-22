@@ -1,0 +1,12 @@
+.admin-header {
+  background-color: #075e54;
+  .brand {
+    font-weight: 400;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .admin-header {
+    flex-wrap: wrap;
+  }
+}

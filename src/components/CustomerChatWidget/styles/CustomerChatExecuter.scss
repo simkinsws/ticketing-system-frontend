@@ -1,0 +1,47 @@
+.chat-executer {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 2000;
+
+  .button-chat {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    position: relative;
+    background-color: var(--btn-primary-bg);
+    border: unset;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    &:active {
+      background-color: var(--btn-primary-bg);
+    }
+    .badge {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      height: 24px;
+      width: 24px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--badge-notification-bg);
+      color: var(--text-white);
+      font-family: var(--font-primary);
+      font-weight: 600;
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .chat-executer {
+    right: 10px;
+    bottom: 10px;
+
+    .button {
+      width: 48px;
+      height: 48px;
+    }
+  }
+}

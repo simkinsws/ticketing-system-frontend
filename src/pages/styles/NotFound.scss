@@ -1,0 +1,91 @@
+@use "../../assets/variables.scss";
+
+.not-found-page-wrapper {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  @media screen and (max-width: 767px) {
+    padding: 20px 0px;
+    height: unset;
+  }
+  .not-found-title {
+    font-size: 128px;
+    font-family: var(--font-primary);
+    font-weight: bold;
+    color: var(--accent-indigo);
+    @media screen and (max-width: 767px) {
+      font-size: 70px;
+    }
+  }
+  .not-found-logo {
+    cursor: pointer;
+    @media screen and (max-width: 767px) {
+      width: 250px;
+      height: 250px;
+    }
+    &:hover {
+      animation: bounce 0.6s ease infinite;
+    }
+  }
+  @keyframes bounce {
+    0% {
+      transform: translateY(0);
+    }
+    30% {
+      transform: translateY(-12px);
+    }
+    55% {
+      transform: translateY(0);
+    }
+    75% {
+      transform: translateY(-6px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  .not-found-subtitle {
+    font-size: 36px;
+    font-weight: bold;
+    font-family: var(--font-primary);
+    line-height: 40px;
+    @media screen and (max-width: 767px) {
+      font-size: 26px;
+      line-height: 34px;
+    }
+  }
+  .not-found-text {
+    font-size: 18px;
+    line-height: 28px;
+    font-family: var(--font-primary);
+    color: var(--text-muted);
+    margin-top: 10px;
+    max-width: 450px;
+    width: auto;
+    text-align: center;
+    @media screen and (max-width: 767px) {
+      font-size: 16px;
+      line-height: 25px;
+    }
+  }
+  .go-home-button {
+    text-decoration: none;
+    margin-top: 30px;
+    background: var(--accent-indigo);
+    border: unset;
+    border-radius: 8px;
+    font-family: var(--font-primary);
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--text-white);
+    height: 50px;
+    width: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+}

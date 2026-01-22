@@ -1,0 +1,142 @@
+@use "../../assets/variables.scss";
+
+.login-page-wrapper {
+  height: 100vh;
+  display: flex;
+  width: 100%;
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    @media screen and (max-width: 1024px) {
+      width: 100%;
+    }
+    img.ticket-logo {
+      margin-bottom: 30px;
+    }
+    .welcome-text {
+      color: var(--text-heading);
+      font-size: 36px;
+      font-weight: bold;
+      line-height: 44px;
+      font-family: var(--font-primary);
+      margin-bottom: 5px;
+    }
+    .sign-in-text {
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 24px;
+      font-family: var(--font-primary);
+      margin-bottom: 20px;
+    }
+    .sign-up-block {
+      width: 450px;
+      @media screen and (max-width: 767px) {
+        width: 100%;
+        padding: 20px;
+      }
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin: 20px 0;
+        color: var(--text-muted);
+        font-size: 14px;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border-input);
+      }
+      .sign-up-link-block {
+        display: flex;
+        justify-self: center;
+        gap: 8px;
+        font-size: 14px;
+        .dont-text {
+          color: var(--text-body);
+          font-weight: 400;
+          font-family: var(--font-primary);
+        }
+        .sign-up-link {
+          color: var(--accent-indigo);
+          text-decoration: none;
+          font-weight: 500;
+          font-family: var(--font-primary);
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      width: 450px;
+      @media screen and (max-width: 767px) {
+        width: 100%;
+        padding: 20px;
+      }
+      .forgot-password {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        .form-check {
+          display: flex;
+          gap: 8px;
+          .form-check-input {
+            width: 16px;
+            height: 16px;
+            &:focus {
+              box-shadow: unset;
+            }
+          }
+          .form-check-label {
+            font-size: 14px;
+            font-family: var(--font-primary);
+            color: var(--text-body);
+            font-weight: 400;
+            line-height: 20px;
+            height: 20px;
+            align-self: center;
+          }
+        }
+        .forgot-password-link {
+          font-size: 14px;
+          font-family: var(--font-primary);
+          color: var(--accent-indigo);
+          font-weight: 500;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+      .submit-button {
+        background-color: var(--btn-primary-bg);
+        height: 50px;
+        font-family: var(--font-primary);
+        color: var(--text-white);
+        font-size: 16px;
+        font-weight: 600;
+        border: unset;
+        border-radius: 8px;
+        &:hover {
+          background-color: var(--btn-primary-hover);
+        }
+      }
+      .error-message {
+        font-size: 14px;
+        color: var(--badge-error-text);
+        margin-top: 4px;
+        font-family: var(--font-primary);
+      }
+    }
+  }
+}

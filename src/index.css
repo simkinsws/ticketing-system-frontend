@@ -1,0 +1,4 @@
+/* Minimal: only small tweaks, Bootstrap does most styling */
+html, body, #root {
+  height: 100%;
+}

@@ -1,0 +1,47 @@
+.message-list {
+  flex-grow: 1;
+  overflow: auto;
+  padding: 1rem;
+  &.customer {
+    background-color: var(--text-white);
+  }
+  &.admin {
+    background-color: var(--bg-page);
+    .message-bubble {
+      &.me {
+        .bubble {
+          background: var(--accent-indigo);
+          &.me {
+            color: var(--text-white);
+          }
+        }
+      }
+      &.other {
+        .bubble {
+          background: var(--bg-secondary);
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    &.customer {
+      height: 100%;
+    }
+  }
+
+  .date-separator {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0 1rem 0;
+
+    span {
+      background-color: var(--bg-secondary);
+      color: var(--text-muted);
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: capitalize;
+    }
+  }
+}
