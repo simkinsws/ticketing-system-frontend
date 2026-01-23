@@ -12,15 +12,12 @@ export function ConversationItem({
   active: boolean;
   onClick: () => void;
 }) {
-  const lastSenderIcon =
-    conv.lastMessageSender === "Customer" || conv.lastMessageSender === 0 ? "👤" : "👨‍💼";
-
   return (
     <ListGroup.Item
       action
       active={active}
       onClick={onClick}
-      className={`conversation-item ${active ? 'active' : ''}`}
+      className={`conversation-item ${active ? "active" : ""}`}
     >
       <div className="item-content">
         <div className="details">
@@ -32,10 +29,7 @@ export function ConversationItem({
               </Badge>
             )}
           </div>
-          <div className="preview">
-            {lastSenderIcon} {conv.lastMessagePreview ?? ""}
-          </div>
-          <div className="id">ID: {conv.customerUserId}</div>
+          <div className="preview">{conv.lastMessagePreview ?? ""}</div>
         </div>
 
         <div className="timestamp">{formatTime(conv.lastMessageAt)}</div>

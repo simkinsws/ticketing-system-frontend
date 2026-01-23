@@ -13,7 +13,6 @@ export function CustomerChatExecuter({
   const isOpen = useUiStore((s) => s.customerChatOpen);
   const unread = useUiStore((s) => s.customerUnreadCount);
 
-  // Badge only when closed
   const showBadge = !isOpen && unread > 0;
 
   return (

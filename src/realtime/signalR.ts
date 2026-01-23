@@ -10,6 +10,7 @@ const INBOX_KEY = [adminInboxKey] as const;
 const MSG_KEY = (conversationId: string) => [messageKey(conversationId)] as const;
 
 let connection: signalR.HubConnection | null = null;
+const joinedConversations = new Set<string>();
 
 // Dedupes concurrent start calls
 let starting: Promise<signalR.HubConnection> | null = null;
@@ -36,23 +37,39 @@ function registerHandlersOnce(conn: signalR.HubConnection) {
 
   // Connection lifecycle
   conn.onreconnecting(() => ui.connection.setReconnecting());
-  conn.onreconnected(() => ui.connection.setConnected());
+  conn.onreconnected(async () => {
+    ui.connection.setConnected();
+
+    // SignalR drops group membership on reconnect; rejoin tracked conversations
+    try {
+      const current = Array.from(joinedConversations);
+      if (!current.length) return;
+
+      if (conn.state !== signalR.HubConnectionState.Connected) return;
+
+      await Promise.all(
+        current.map((id) => conn.invoke("JoinConversation", id))
+      );
+    } catch (err) {
+      console.error("Failed to rejoin conversations after reconnect", err);
+    }
+  });
   conn.onclose(() => ui.connection.setDisconnected());
 
-  // Domain events
   conn.on("MessageCreated", (msg: MessageDto) => {
     // Always keep message cache updated
-    queryClient.setQueryData<MessageDto[]>(
-      MSG_KEY(msg.conversationId),
-      (old) => {
-        const prev = old ?? [];
-        if (prev.some((m) => m.id === msg.id)) return prev;
-        return [...prev, msg].sort(
-          (a, b) =>
-            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-        );
-      }
-    );
+    const key = MSG_KEY(msg.conversationId);
+    const wasAlreadyPresent = (queryClient.getQueryData<MessageDto[]>(key) ?? [])
+      .some((m) => m.id === msg.id);
+
+    queryClient.setQueryData<MessageDto[]>(key, (old) => {
+      const prev = old ?? [];
+      if (prev.some((m) => m.id === msg.id)) return prev;
+      return [...prev, msg].sort(
+        (a, b) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      );
+    });
 
     // Customer widget unread logic
     const uiNow = useUiStore.getState();
@@ -67,7 +84,8 @@ function registerHandlersOnce(conn: signalR.HubConnection) {
       msg.conversationId === customerConvId &&
       senderIsAdmin
     ) {
-      if (!uiNow.customerChatOpen) uiNow.unread.increment();
+      // Some servers replay messages on reconnect; only increment if new
+      if (!uiNow.customerChatOpen && !wasAlreadyPresent) uiNow.unread.increment();
     }
   });
 
@@ -76,9 +94,51 @@ function registerHandlersOnce(conn: signalR.HubConnection) {
       const prev = old ?? [];
       const idx = prev.findIndex((c) => c.id === conv.id);
 
+      // Merge with existing to avoid dropping fields (some events omit preview/sender)
+      const merged = (existing: ConversationListItemDto | undefined) => {
+        if (!existing) return conv;
+
+        const previewFromIncoming =
+          conv.lastMessagePreview !== undefined && conv.lastMessagePreview !== null
+            ? conv.lastMessagePreview
+            : undefined;
+
+        const senderFromIncoming =
+          conv.lastMessageSender !== undefined && conv.lastMessageSender !== null
+            ? conv.lastMessageSender
+            : undefined;
+
+        return {
+          ...existing,
+          ...conv,
+          // Only override preview when the incoming value is non-empty
+          lastMessagePreview:
+            previewFromIncoming !== undefined && previewFromIncoming !== ""
+              ? previewFromIncoming
+              : existing.lastMessagePreview ?? null,
+          // Only override sender when present (0/1 are valid values)
+          lastMessageSender:
+            senderFromIncoming !== undefined
+              ? senderFromIncoming
+              : existing.lastMessageSender ?? null,
+        };
+      };
+
+      const hasExisting = idx >= 0;
+      const hasPreview =
+        conv.lastMessagePreview !== undefined &&
+        conv.lastMessagePreview !== null &&
+        conv.lastMessagePreview !== "";
+      const hasSender = conv.lastMessageSender !== undefined && conv.lastMessageSender !== null;
+
+      // If the server emits a partial update before the initial fetch, ignore it so we don't lose preview/sender
+      if (!hasExisting && !hasPreview && !hasSender) {
+        return prev;
+      }
+
       const next =
         idx >= 0
-          ? [...prev.slice(0, idx), conv, ...prev.slice(idx + 1)]
+          ? [...prev.slice(0, idx), merged(prev[idx]), ...prev.slice(idx + 1)]
           : [conv, ...prev];
 
       next.sort(
@@ -162,11 +222,13 @@ async function requireConnected(): Promise<signalR.HubConnection> {
 export async function joinConversation(conversationId: string) {
   const conn = await requireConnected();
   await conn.invoke("JoinConversation", conversationId);
+  joinedConversations.add(conversationId);
 }
 
 export async function leaveConversation(conversationId: string) {
   const conn = await requireConnected();
   await conn.invoke("LeaveConversation", conversationId);
+  joinedConversations.delete(conversationId);
 }
 
 export async function stopSignalR() {

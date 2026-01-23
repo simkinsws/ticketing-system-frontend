@@ -72,7 +72,7 @@ export function ChatPanel({ isMobile = false }: { isMobile?: boolean }) {
   if (!selectedId || !selectedConv) {
     return (
       <div className="chat-panel no-selection">
-        <div className="message">👈 Select a conversation to start</div>
+        <div className="message"> Select a conversation</div>
       </div>
     );
   }

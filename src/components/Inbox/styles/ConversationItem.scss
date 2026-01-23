@@ -1,8 +1,20 @@
 .conversation-item {
   padding: 1rem;
-
   &.active {
-    border-left: 4px solid #0d6efd;
+    border-left: 4px solid var(--accent-indigo);
+    background-color: var(--bg-chat-customer);
+    border-top: unset;
+    border-bottom: unset;
+    .item-content {
+      .timestamp {
+        color: var(--text-muted);
+      }
+      .details {
+        .preview {
+          color: var(--text-muted);
+        }
+      }
+    }
   }
 
   .item-content {
@@ -15,8 +27,10 @@
       flex: 1;
 
       .name {
-        font-weight: 600;
-
+        font-weight: 700;
+        color: var(--text-heading);
+        font-size: 14px;
+        font-family: var(--font-primary);
         .badge {
           margin-left: 0.5rem;
         }
@@ -24,16 +38,12 @@
 
       .preview {
         color: var(--bs-muted);
-        font-size: 0.875rem;
+        font-size: 14px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        font-family: var(--font-primary);
         max-width: 260px;
-      }
-
-      .id {
-        color: var(--bs-muted);
-        font-size: 0.875rem;
       }
     }
 

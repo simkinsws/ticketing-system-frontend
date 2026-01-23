@@ -1,8 +1,8 @@
 import { useState, useRef } from "react";
-import { Button, Form } from "react-bootstrap";
 import "./styles/MessageComposer.scss";
 import sendIcon from "../../assets/chat-send-button.svg";
-
+import sendAdminIcon from "../../assets/admin-send.svg";
+import Form from "react-bootstrap/Form";
 export function MessageComposer({
   onSend,
   meSenderType,
@@ -89,13 +89,23 @@ export function MessageComposer({
         }}
         className="input"
       />
-      <Button
+      <img
+        src={sendAdminIcon}
+        alt="Send"
+        onClick={send}
+        className="send-button"
+        style={{
+          cursor: busy || !text.trim() ? "not-allowed" : "pointer",
+          opacity: busy || !text.trim() ? 0.5 : 1,
+        }}
+      />
+      {/* <Button
         className="send-btn"
         disabled={busy || !text.trim()}
         onClick={send}
       >
         Send
-      </Button>
+      </Button> */}
     </div>
   );
 }

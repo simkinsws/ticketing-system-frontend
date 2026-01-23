@@ -1,3 +1,4 @@
+import type { ChangeEventHandler } from "react";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import type { UseFormRegisterReturn, FieldError } from "react-hook-form";
@@ -13,6 +14,9 @@ interface FormInputProps {
   error?: FieldError;
   disabled?: boolean;
   className?: string;
+  value?: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  ariaLabel?: string;
 }
 
 export const FormInput = ({
@@ -25,7 +29,16 @@ export const FormInput = ({
   error,
   disabled = false,
   className,
+  value,
+  onChange,
+  ariaLabel,
 }: FormInputProps) => {
+  // Avoid mixing controlled props with react-hook-form register handlers
+  const controlProps =
+    value !== undefined || onChange !== undefined
+      ? { value, onChange }
+      : register ?? {};
+
   return (
     <div className={`form-input-wrapper ${className || ""}`}>
       <Form.Label htmlFor={id}>{label}</Form.Label>
@@ -43,9 +56,10 @@ export const FormInput = ({
           id={id}
           placeholder={placeholder}
           disabled={disabled}
+          aria-label={ariaLabel}
           aria-describedby={icon ? `${id}-prefix` : undefined}
           className={error ? "input-error" : ""}
-          {...register}
+          {...controlProps}
         />
       </InputGroup>
       {error && <span className="error-message">{error.message}</span>}

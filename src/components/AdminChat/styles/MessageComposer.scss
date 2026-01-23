@@ -5,7 +5,11 @@
   display: flex;
   gap: 0.5rem;
   align-items: flex-end;
-
+  &.admin {
+    .input {
+      resize: none;
+    }
+  }
   &.customer {
     background-color: var(--text-white);
     .input {

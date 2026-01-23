@@ -20,6 +20,11 @@ export default defineConfig({
         secure: false,
         ws: true,
       },
+      "/api": {
+        target: "https://localhost:54166",
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
   preview: {
@@ -30,6 +35,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
         ws: true,
+      },
+      "/api": {
+        target: "https://localhost:54166",
+        changeOrigin: true,
+        secure: false,
       },
     },
   },
