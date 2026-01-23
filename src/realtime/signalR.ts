@@ -18,11 +18,14 @@ let starting: Promise<signalR.HubConnection> | null = null;
 // Ensure we register handlers only once per connection instance
 let handlersRegistered = false;
 
+const hubBase = import.meta.env.VITE_SIGNALR_URL?.trim() || "";
+const hubUrl = hubBase ? `${hubBase}/hubs/support` : "/hubs/support";
+
 function ensureConnection(): signalR.HubConnection {
   if (connection) return connection;
 
   connection = new signalR.HubConnectionBuilder()
-    .withUrl("/hubs/support", { withCredentials: true }) // proxy this in Vite OR use absolute backend URL
+    .withUrl(hubUrl, { withCredentials: true }) // proxy this in Vite OR use absolute backend URL
     .withAutomaticReconnect()
     .build();
 
