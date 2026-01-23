@@ -17,7 +17,10 @@ export const useAuthInit = () => {
   });
 
   useEffect(() => {
+    console.log("[useAuthInit] Query state:", { data, isError, isSuccess, isPending });
+    
     if (isSuccess && data) {
+      console.log("[useAuthInit] Setting auth with user:", data.userId);
       setAuth(
         data.userId,
         data.roles as UserRole[],
@@ -28,6 +31,7 @@ export const useAuthInit = () => {
     }
 
     if (isError || (isSuccess && !data)) {
+      console.log("[useAuthInit] Clearing auth - isError:", isError, "no data:", !data);
       clearAuth();
     }
   }, [data, isError, isSuccess, setAuth, clearAuth]);
