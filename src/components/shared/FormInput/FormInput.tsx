@@ -33,7 +33,6 @@ export const FormInput = ({
   onChange,
   ariaLabel,
 }: FormInputProps) => {
-  // Avoid mixing controlled props with react-hook-form register handlers
   const controlProps =
     value !== undefined || onChange !== undefined
       ? { value, onChange }

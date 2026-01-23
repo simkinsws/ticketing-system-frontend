@@ -20,7 +20,6 @@ export function MessageComposer({
 
     setBusy(true);
     setText("");
-    // Clear contenteditable div for customer
     if (customerInputRef.current) {
       customerInputRef.current.textContent = "";
     }
@@ -99,13 +98,6 @@ export function MessageComposer({
           opacity: busy || !text.trim() ? 0.5 : 1,
         }}
       />
-      {/* <Button
-        className="send-btn"
-        disabled={busy || !text.trim()}
-        onClick={send}
-      >
-        Send
-      </Button> */}
     </div>
   );
 }

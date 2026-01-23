@@ -3,9 +3,7 @@ import { InboxPanel } from "../../components/Inbox/InboxPanel";
 import { useIsMobile } from "../../hooks/useIsMobile";
 import { useUiStore } from "../../store/uiStore";
 import { useSignalR } from "../../realtime/useSignalR";
-// import { AdminHeader } from "../../components/AdminChat/AdminHeader";
 import "./styles/AdminSupportChat.scss";
-
 
 const AdminSupportChat = () => {
   useSignalR();
@@ -14,7 +12,6 @@ const AdminSupportChat = () => {
 
   return (
     <div>
-      {/* <AdminHeader /> */}
       {isMobile ? (
         selectedId ? (
           <ChatPanel isMobile={isMobile} />
