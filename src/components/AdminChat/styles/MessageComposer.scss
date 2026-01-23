@@ -35,9 +35,10 @@
 
 @media screen and (max-width: 768px) {
   .message-composer {
-    flex-grow: 1;
+    flex-grow: unset;
     &.customer {
-      flex-grow: unset;
+    }
+    &.admin {
     }
   }
 }
