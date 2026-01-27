@@ -37,7 +37,6 @@ export const useAuthStore = create<AuthState>()(
       },
 
       setAuth: (userId, roles, displayName, email) => {
-        // Normalize roles to consistent format (capitalize first letter)
         const normalizedRoles = roles.map(
           (role) =>
             (role.charAt(0).toUpperCase() +
@@ -80,6 +79,8 @@ export const useAuthStore = create<AuthState>()(
     {
       name: "auth-storage",
       partialize: (state) => ({
+        isAuthenticated: state.isAuthenticated,
+        authInitialized: state.authInitialized,
         roles: state.roles,
         displayName: state.displayName,
         email: state.email,
