@@ -11,6 +11,7 @@ export interface AuthState {
   email?: string;
 
   hasHydrated: boolean;
+  setHasHydrated: (v: boolean) => void;
 
   setAuth: (
     userId: string,
@@ -22,6 +23,12 @@ export interface AuthState {
   logout: () => void;
   clearAuth: () => void;
 }
+
+const STORAGE_KEY = "auth-storage";
+const storage =
+  typeof window !== "undefined"
+    ? createJSONStorage(() => localStorage)
+    : undefined;
 
 const initialAuth = {
   isAuthenticated: false,
@@ -35,7 +42,9 @@ export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       ...initialAuth,
+
       hasHydrated: false,
+      setHasHydrated: (v) => set({ hasHydrated: v }),
 
       setAuth: (userId, roles, displayName, email) => {
         const normalizedRoles = roles.map(
@@ -54,19 +63,18 @@ export const useAuthStore = create<AuthState>()(
       },
 
       logout: () => {
-        localStorage.removeItem("auth-storage");
+        storage?.removeItem(STORAGE_KEY);
         set({ ...initialAuth, hasHydrated: true });
       },
 
       clearAuth: () => {
-        localStorage.removeItem("auth-storage");
+        storage?.removeItem(STORAGE_KEY);
         set({ ...initialAuth, hasHydrated: true });
       },
     }),
     {
-      name: "auth-storage",
-      storage: createJSONStorage(() => localStorage),
-
+      name: STORAGE_KEY,
+      storage,
       partialize: (state) => ({
         isAuthenticated: state.isAuthenticated,
         roles: state.roles,
@@ -75,12 +83,15 @@ export const useAuthStore = create<AuthState>()(
         userId: state.userId,
       }),
 
-      // ✅ CORRECT hydration handling
       onRehydrateStorage: () => (state, error) => {
-        if (error) alert(`[AUTH] ❌ Failed to hydrate auth store: ${error}`);
-        if (state) {
-          state.hasHydrated = true;
-        }
+        if (error)
+          alert(`[AUTH] ❌ Failed to hydrate auth store: ${String(error)}`);
+
+        alert(
+          `[AUTH] ✅ Hydrated. isAuthenticated=${state?.isAuthenticated} userId=${state?.userId ?? "none"} roles=${state?.roles?.join(",") ?? "none"}`,
+        );
+
+        state?.setHasHydrated(true);
       },
     },
   ),
