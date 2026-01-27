@@ -16,7 +16,8 @@ import AdminSupportChat from "./pages/Admin/AdminSupportChat";
 import { CustomerChatWidget } from "./components/CustomerChatWidget/CustomerChatWidget";
 export default function App() {
   const { isPending } = useAuthInit();
-  const { isAuthenticated, roles } = useAuthStore();
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  const roles = useAuthStore((s) => s.roles);
 
   if (isPending) {
     return (
