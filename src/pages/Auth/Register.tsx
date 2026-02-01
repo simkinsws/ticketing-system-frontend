@@ -215,7 +215,7 @@ export const Register = () => {
             })}
             error={errors.confirmPassword}
           />
-          <button className="submit-button" type="submit">
+          <button className="submit-button" type="submit" disabled={isPending}>
             {isPending ? "Creating..." : "Create Account"}
           </button>
           {errorMessage ? (
