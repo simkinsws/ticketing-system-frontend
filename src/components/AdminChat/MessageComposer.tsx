@@ -30,7 +30,7 @@ export function MessageComposer({
       if (customerInputRef.current) {
         customerInputRef.current.textContent = trimmed;
       }
-      alert("Failed to send. Please try again.");
+      console.error("Failed to send message");
     } finally {
       setBusy(false);
     }

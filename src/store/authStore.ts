@@ -87,12 +87,7 @@ export const useAuthStore = create<AuthState>()(
       }),
 
       onRehydrateStorage: () => (state, error) => {
-        if (error)
-          alert(`[AUTH] ❌ Failed to hydrate auth store: ${String(error)}`);
-
-        alert(
-          `[AUTH] ✅ Hydrated. isAuthenticated=${state?.isAuthenticated} userId=${state?.userId ?? "none"} roles=${state?.roles?.join(",") ?? "none"}`,
-        );
+        if (error) console.error("Failed to hydrate auth store:", error);
 
         state?.setHasHydrated(true);
       },

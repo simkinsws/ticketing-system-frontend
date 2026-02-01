@@ -6,7 +6,7 @@ import shieldLogo from "../../assets/shield-logo.svg";
 import successIcon from "../../assets/info-icon-badge.svg";
 import "../styles/ConfirmEmail.scss";
 
-const ConfirmEmail = () => {
+export const ConfirmEmail = () => {
   const [searchParams] = useSearchParams();
   const userId = searchParams.get("userId") || "";
   const token = searchParams.get("token") || "";
@@ -81,5 +81,3 @@ const ConfirmEmail = () => {
     </div>
   );
 };
-
-export default ConfirmEmail;

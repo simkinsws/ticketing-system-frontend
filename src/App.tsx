@@ -1,19 +1,20 @@
 import { Route, Routes } from "react-router";
 import { useAuthInit } from "./hooks/useAuthInit";
 import { useAuthStore } from "./store/authStore";
-import Login from "./pages/Auth/Login";
-import Register from "./pages/Auth/Register";
+import { Login } from "./pages/Auth/Login";
+import { Register } from "./pages/Auth/Register";
 import { RequireRole } from "./routes/RequireRole";
 import BasicTable from "./components/shared/Table/BasicTable";
 import { RootRedirect } from "./routes/RootRedirect";
-import ForgotPassword from "./pages/Auth/ForgotPassword";
+import { ForgotPassword } from "./pages/Auth/ForgotPassword";
 import loaderWebp from "./assets/ticket_loader.webp";
 import "./App.css";
 import NotFound from "./pages/Auth/NotFound";
 import { ResetPassword } from "./pages/Auth/ResetPassword";
-import ConfirmEmail from "./pages/Auth/ConfirmEmail";
+import { ConfirmEmail } from "./pages/Auth/ConfirmEmail";
 import AdminSupportChat from "./pages/Admin/AdminSupportChat";
 import { CustomerChatWidget } from "./components/CustomerChatWidget/CustomerChatWidget";
+import { CustomerProfileSettings } from "./pages/Customer/CustomerProfileSettings";
 export default function App() {
   const { isPending } = useAuthInit();
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
@@ -42,6 +43,10 @@ export default function App() {
           <Route
             path="/customer/dashboard"
             element={<div>Customer Dashboard</div>}
+          />
+          <Route
+            path="/customer/profile"
+            element={<CustomerProfileSettings />}
           />
         </Route>
 

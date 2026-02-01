@@ -9,7 +9,7 @@ import { useForgotPasswordApi } from "../../hooks/useForgotPasswordApi";
 import { Link } from "react-router";
 import "../styles/ForgotPassword.scss";
 import type { AxiosError } from "axios";
-const ForgotPassword = () => {
+export const ForgotPassword = () => {
   const {
     register,
     handleSubmit,
@@ -133,5 +133,3 @@ const ForgotPassword = () => {
     </div>
   );
 };
-
-export default ForgotPassword;

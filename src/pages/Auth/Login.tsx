@@ -14,7 +14,7 @@ import { Link, useNavigate } from "react-router";
 import type { LoginFormInputs } from "../../types/auth";
 import type { AxiosError } from "axios";
 
-const Login = () => {
+export const Login = () => {
   const {
     register,
     handleSubmit,
@@ -141,5 +141,3 @@ const Login = () => {
     </div>
   );
 };
-
-export default Login;

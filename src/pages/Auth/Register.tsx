@@ -33,7 +33,7 @@ export type ErrorResponse = {
   code?: string;
 };
 
-const Register = () => {
+export const Register = () => {
   const {
     register,
     handleSubmit,
@@ -154,7 +154,7 @@ const Register = () => {
         </span>
         <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
           <FormInput
-            label="Display Name"
+            label="Name"
             id="displayName"
             type="text"
             icon={userIcon}
@@ -257,5 +257,3 @@ const Register = () => {
     </div>
   );
 };
-
-export default Register;
