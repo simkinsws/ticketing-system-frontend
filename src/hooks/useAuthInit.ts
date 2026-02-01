@@ -61,16 +61,9 @@ export const useAuthInit = () => {
 
     if (isError) {
       let statusCode: number | undefined;
-      let message = "unknown error";
 
       if (axios.isAxiosError(error)) {
         statusCode = error.response?.status;
-        message =
-          error.response?.data?.message ??
-          error.message ??
-          "axios error with no message";
-      } else if (error instanceof Error) {
-        message = error.message;
       }
 
       // ✅ Only clear auth on real "not authenticated"
