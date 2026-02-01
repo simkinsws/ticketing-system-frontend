@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { clearAuthToken } from "../api/http";
+import { clearAuthToken } from "../api/core/http";
 
 export type UserRole = "Admin" | "Customer";
 

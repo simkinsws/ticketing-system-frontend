@@ -38,6 +38,13 @@ type UiState = {
     clear: () => void;
     set: (n: number) => void;
   };
+
+  // Sidebar Mobile
+  sidebarOpen: boolean;
+  sidebar: {
+    toggleSidebar: () => void;
+    setSidebarOpen: (open: boolean) => void;
+  };
 };
 
 export const useUiStore = create<UiState>((set) => ({
@@ -72,5 +79,12 @@ export const useUiStore = create<UiState>((set) => ({
       set((s) => ({ customerUnreadCount: s.customerUnreadCount + 1 })),
     clear: () => set({ customerUnreadCount: 0 }),
     set: (n) => set({ customerUnreadCount: Math.max(0, n) }),
+  },
+
+  // Sidebar Mobile
+  sidebarOpen: false,
+  sidebar: {
+    toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
+    setSidebarOpen: (open) => set({ sidebarOpen: open }),
   },
 }));

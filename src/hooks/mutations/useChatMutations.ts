@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { markRead, sendMessage } from "../api/chatApi";
-import { adminInboxKey } from "./useAdminInbox";
-import { messageKey } from "./useMessages";
-import type { MessageDto } from "../types/chat";
+import { markRead, sendMessage } from "../../api/chat/endpoints";
+import { adminInboxKey } from "../state/useAdminInbox";
+import { messageKey } from "../api/useMessages";
+import type { MessageDto } from "../../types/chat";
 
 export function useSendMessage(conversationId: string | null) {
   const qc = useQueryClient();
@@ -37,10 +37,10 @@ export function useMarkRead(conversationId: string | null) {
     },
     onSuccess: () => {
       if (!conversationId) return;
-      qc.setQueryData(adminInboxKey ? [adminInboxKey] : [], (old: any) => {
+      qc.setQueryData(adminInboxKey ? [adminInboxKey] : [], (old: unknown) => {
         if (!Array.isArray(old)) return old;
-        return old.map((c: any) =>
-          c.id === conversationId ? { ...c, unreadForAdminCount: 0 } : c
+        return old.map((c: Record<string, unknown>) =>
+          (c as Record<string, unknown>).id === conversationId ? { ...c, unreadForAdminCount: 0 } : c
         );
       });
     },

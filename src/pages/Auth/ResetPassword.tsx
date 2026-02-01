@@ -7,7 +7,7 @@ import { FormInput } from "../../components/shared/FormInput/FormInput";
 import passwordIcon from "../../assets/password-icon.svg";
 import { PasswordStrengthIndicator } from "../../components/shared/PasswordStrengthIndicator/PasswordStrengthIndicator";
 import infoIcon from "../../assets/info-icon-badge.svg";
-import { useResetPasswordApi } from "../../hooks/useResetPasswordApi";
+import { useResetPasswordApi } from "../../hooks/api/useResetPasswordApi";
 export interface ResetPasswordInputs {
   newPassword: string;
   confirmPassword?: string;

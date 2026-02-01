@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { markRead } from "../../api/chatApi";
+import { markRead } from "../../api/chat/endpoints";
 import { startSignalR, joinConversation } from "../../realtime/signalR";
 import { useUiStore } from "../../store/uiStore";
 import {
   useCustomerConversation,
   customerConversationKey,
-} from "../../hooks/useCustomerConversation";
-import { useMessages } from "../../hooks/useMessages";
+} from "../../hooks/api/useCustomerConversation";
+import { useMessages } from "../../hooks/api/useMessages";
 import { CustomerChatExecuter } from "./CustomerChatExecuter";
 import { CustomerChatWindow } from "./CustomerChatWindow";
 import type { CustomerConversationDto } from "../../types/chat";

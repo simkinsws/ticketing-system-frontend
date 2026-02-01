@@ -1,4 +1,4 @@
-import { useAdminTicketListApi } from "../../../hooks/useTicketDetailsApi";
+import { useAdminTicketListApi } from "../../../hooks/api/useTicketDetailsApi";
 import { useAuthStore } from "../../../store/authStore";
 
 const BasicTable = () => {

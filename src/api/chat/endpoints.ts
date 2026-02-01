@@ -1,5 +1,5 @@
-import { http } from "./http";
-import type { ConversationListItemDto, MessageDto, CustomerConversationDto } from "../types/chat";
+import { http } from "../core/http";
+import type { ConversationListItemDto, MessageDto, CustomerConversationDto } from "../../types/chat";
 
 export async function fetchAdminInbox(): Promise<ConversationListItemDto[]> {
   const res = await http.get("/api/admin/inbox");

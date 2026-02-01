@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { ListGroup } from "react-bootstrap";
 import { useUiStore } from "../../store/uiStore";
-import { useAdminInbox } from "../../hooks/useAdminInbox";
+import { useAdminInbox } from "../../hooks/state/useAdminInbox";
 import { ConversationItem } from "./ConversationItem";
 import { LoadingSpinner } from "../shared/LoadingSpinner";
 import "./styles/InboxPanel.scss";

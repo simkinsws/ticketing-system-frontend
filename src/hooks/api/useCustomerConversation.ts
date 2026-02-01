@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { openCustomerConversation } from "../api/chatApi";
+import { openCustomerConversation } from "../../api/chat/endpoints";
 
 export const customerConversationKey = "/api/support/conversation/open";
 

@@ -1,10 +1,10 @@
 import * as signalR from "@microsoft/signalr";
 import type { ConversationListItemDto, MessageDto } from "../types/chat";
-import { queryClient } from "../app/queryClient";
+import { queryClient } from "../config/queryClient";
 import { useUiStore } from "../store/uiStore";
-import { adminInboxKey } from "../hooks/useAdminInbox";
-import { messageKey } from "../hooks/useMessages";
-import { customerConversationKey } from "../hooks/useCustomerConversation";
+import { adminInboxKey } from "../hooks/state/useAdminInbox";
+import { messageKey } from "../hooks/api/useMessages";
+import { customerConversationKey } from "../hooks/api/useCustomerConversation";
 
 const INBOX_KEY = [adminInboxKey] as const;
 const MSG_KEY = (conversationId: string) => [messageKey(conversationId)] as const;

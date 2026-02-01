@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link, useSearchParams } from "react-router";
 import { AxiosError } from "axios";
-import { useConfirmEmailApi } from "../../hooks/useConfirmEmailApi";
+import { useConfirmEmailApi } from "../../hooks/api/useConfirmEmailApi";
 import shieldLogo from "../../assets/shield-logo.svg";
 import successIcon from "../../assets/info-icon-badge.svg";
 import "../styles/ConfirmEmail.scss";

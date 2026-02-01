@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import infoIcon from "../../assets/info-icon.svg";
 import arrowLink from "../../assets/arrow-link.svg";
 import type { ForgotPasswordInput } from "../../types/auth";
-import { useForgotPasswordApi } from "../../hooks/useForgotPasswordApi";
+import { useForgotPasswordApi } from "../../hooks/api/useForgotPasswordApi";
 import { Link } from "react-router";
 import "../styles/ForgotPassword.scss";
 import type { AxiosError } from "axios";

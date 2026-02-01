@@ -1,24 +1,27 @@
-import { Route, Routes } from "react-router";
-import { useAuthInit } from "./hooks/useAuthInit";
+import { Route, Routes, useLocation } from "react-router";
+import { useAuthInit } from "./hooks/state/useAuthInit";
 import { useAuthStore } from "./store/authStore";
+import { RequireRole } from "./routes/RequireRole";
+import { RootRedirect } from "./routes/RootRedirect";
+import { ProtectedLayout } from "./layouts/ProtectedLayout";
 import { Login } from "./pages/Auth/Login";
 import { Register } from "./pages/Auth/Register";
-import { RequireRole } from "./routes/RequireRole";
-import BasicTable from "./components/shared/Table/BasicTable";
-import { RootRedirect } from "./routes/RootRedirect";
 import { ForgotPassword } from "./pages/Auth/ForgotPassword";
-import loaderWebp from "./assets/ticket_loader.webp";
-import "./App.css";
-import NotFound from "./pages/Auth/NotFound";
 import { ResetPassword } from "./pages/Auth/ResetPassword";
 import { ConfirmEmail } from "./pages/Auth/ConfirmEmail";
+import NotFound from "./pages/Auth/NotFound";
+import BasicTable from "./components/shared/Table/BasicTable";
 import AdminSupportChat from "./pages/Admin/AdminSupportChat";
 import { CustomerChatWidget } from "./components/CustomerChatWidget/CustomerChatWidget";
 import { CustomerProfileSettings } from "./pages/Customer/CustomerProfileSettings";
+import loaderWebp from "./assets/ticket_loader.webp";
+import "./App.css";
 export default function App() {
   const { isPending } = useAuthInit();
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
   const roles = useAuthStore((s) => s.roles);
+  const location = useLocation();
+  const hideChatWidget = location.pathname === "/unauthorized";
 
   if (isPending) {
     return (
@@ -37,31 +40,32 @@ export default function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/confirm-email" element={<ConfirmEmail />} />
+        <Route path="/unauthorized" element={<div>Access Denied</div>} />
 
-        {/* Customer routes */}
-        <Route element={<RequireRole allowedRoles={["Customer"]} />}>
-          <Route
-            path="/customer/dashboard"
-            element={<div>Customer Dashboard</div>}
-          />
-          <Route
-            path="/customer/profile"
-            element={<CustomerProfileSettings />}
-          />
+        <Route element={<ProtectedLayout />}>
+          <Route element={<RequireRole allowedRoles={["Customer"]} />}>
+            <Route
+              path="/customer/dashboard"
+              element={<div>Customer Dashboard</div>}
+            />
+            <Route
+              path="/customer/profile"
+              element={<CustomerProfileSettings />}
+            />
+          </Route>
+
+          <Route element={<RequireRole allowedRoles={["Admin"]} />}>
+            <Route path="/admin/dashboard" element={<BasicTable />} />
+          </Route>
         </Route>
-
-        {/* Admin-only routes */}
+        
         <Route element={<RequireRole allowedRoles={["Admin"]} />}>
-          <Route path="/admin/dashboard" element={<BasicTable />} />
           <Route path="/admin/chat" element={<AdminSupportChat />} />
         </Route>
-
-        {/* Unauthorized page */}
-        <Route path="/unauthorized" element={<div>Access Denied</div>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
 
-      {isAuthenticated && roles.includes("Customer") ? (
+      {isAuthenticated && roles.includes("Customer") && !hideChatWidget ? (
         <CustomerChatWidget />
       ) : null}
     </>

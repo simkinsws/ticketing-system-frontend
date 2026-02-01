@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { http } from "../api/http";
-import { useAuthStore, type UserRole } from "../store/authStore";
+import { http } from "../../api/core/http";
+import { useAuthStore, type UserRole } from "../../store/authStore";
 import axios from "axios";
 
 export const useAuthInit = () => {

@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { http } from "../api/http";
-import type { ResetPasswordInputs } from "../pages/Auth/ResetPassword";
+import { http } from "../../api/core/http";
+import type { ResetPasswordInputs } from "../../pages/Auth/ResetPassword";
 
 export const useResetPasswordApi = () => {
   return useMutation({

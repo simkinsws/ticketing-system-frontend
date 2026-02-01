@@ -12,7 +12,7 @@ import shield from "../../assets/shield.svg";
 import "../styles/Register.scss";
 import { Link } from "react-router";
 import type { AxiosError } from "axios";
-import { useRegisterApi } from "../../hooks/useRegisterApi";
+import { useRegisterApi } from "../../hooks/api/useRegisterApi";
 
 export type RegisterFormInputs = {
   email: string;

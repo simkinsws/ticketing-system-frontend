@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useLoginApi } from "../../hooks/useLoginApi";
+import { useLoginApi } from "../../hooks/api/useLoginApi";
 import { FormInput } from "../../components/shared/FormInput/FormInput";
 import ticketLogo from "../../assets/ticket-logo.svg";
 import lightning from "../../assets/lightning.svg";

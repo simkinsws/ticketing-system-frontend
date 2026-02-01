@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchAdminInbox } from "../api/chatApi";
+import { fetchAdminInbox } from "../../api/chat/endpoints";
 
 export const adminInboxKey = "/api/admin/inbox";
 

@@ -1,6 +1,6 @@
 import { ChatPanel } from "../../components/AdminChat/ChatPanel";
 import { InboxPanel } from "../../components/Inbox/InboxPanel";
-import { useIsMobile } from "../../hooks/useIsMobile";
+import { useIsMobile } from "../../hooks/ui/useIsMobile";
 import { useUiStore } from "../../store/uiStore";
 import { useSignalR } from "../../realtime/useSignalR";
 import "./styles/AdminSupportChat.scss";

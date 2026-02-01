@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/variables.scss";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "./app/queryClient";
+import { queryClient } from "./config/queryClient";
 import App from "./App";
 import "./styles/App.scss";
 import "./index.css";

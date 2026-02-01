@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { http } from "../api/http";
+import { http } from "../../api/core/http";
 
 export type AdminTicketListApiParams = {
   userId?: string;

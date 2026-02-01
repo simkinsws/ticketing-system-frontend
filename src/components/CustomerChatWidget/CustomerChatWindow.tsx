@@ -5,8 +5,8 @@ import { LoadingSpinner } from "../shared/LoadingSpinner";
 import "./styles/CustomerChatWindow.scss";
 import { MessageList } from "../AdminChat/MessageList";
 import { MessageComposer } from "../AdminChat/MessageComposer";
-import { messageKey } from "../../hooks/useMessages";
-import { useSendMessage, useMarkRead } from "../../hooks/useChatMutations";
+import { messageKey } from "../../hooks/api/useMessages";
+import { useSendMessage, useMarkRead } from "../../hooks/mutations/useChatMutations";
 import supportTeamAvatar from "../../assets/support_avatar.webp";
 export function CustomerChatWindow({
   open,

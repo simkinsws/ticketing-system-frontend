@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { http } from "../api/http";
+import { http } from "../../api/core/http";
 
 interface ConfirmEmailPayload {
   userId: string;
