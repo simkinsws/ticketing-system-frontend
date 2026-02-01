@@ -24,8 +24,14 @@ const hubUrl = hubBase ? `${hubBase}/hubs/support` : "/hubs/support";
 function ensureConnection(): signalR.HubConnection {
   if (connection) return connection;
 
+  const token = localStorage.getItem("auth-token");
+
   connection = new signalR.HubConnectionBuilder()
-    .withUrl(hubUrl, { withCredentials: true }) // proxy this in Vite OR use absolute backend URL
+    .withUrl(hubUrl, {
+      accessTokenFactory: () => token || "",
+      skipNegotiation: false,
+      transport: signalR.HttpTransportType.WebSockets | signalR.HttpTransportType.LongPolling,
+    })
     .withAutomaticReconnect()
     .build();
 
