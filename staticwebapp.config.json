@@ -1,11 +1,5 @@
 {
   "navigationFallback": {
-    "rewrite": "/index.html",
-    "exclude": ["/assets/*"]
-  },
-  "mimeTypes": {
-    ".js": "text/javascript",
-    ".mjs": "text/javascript",
-    ".json": "application/json"
+    "rewrite": "/index.html"
   }
 }
