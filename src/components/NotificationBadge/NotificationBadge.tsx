@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import { useNotificationsApi, useUnreadCountApi } from "../../hooks/api/useNotificationsApi";
+import {
+  useNotificationsApi,
+  useUnreadCountApi,
+} from "../../hooks/api/useNotificationsApi";
 import {
   useMarkNotificationAsReadMutation,
   useMarkAllAsReadMutation,
@@ -8,6 +11,7 @@ import { useNotificationListener } from "../../hooks/state/useNotificationListen
 import { formatDistanceToNow } from "../../utils/dateGrouping";
 import notificationBell from "../../assets/notification-bell.svg";
 import "./NotificationBadge.scss";
+import { Link } from "react-router";
 
 export const NotificationBadge = () => {
   const [showPanel, setShowPanel] = useState(false);
@@ -21,12 +25,14 @@ export const NotificationBadge = () => {
 
   useNotificationListener();
 
-  // Handle click outside to close panel
   useEffect(() => {
     if (!showPanel) return;
 
     const handleClickOutside = (event: MouseEvent) => {
-      if (badgeRef.current && !badgeRef.current.contains(event.target as Node)) {
+      if (
+        badgeRef.current &&
+        !badgeRef.current.contains(event.target as Node)
+      ) {
         setShowPanel(false);
       }
     };
@@ -45,6 +51,8 @@ export const NotificationBadge = () => {
     markAllAsReadMutation.mutate();
   };
 
+  const displayedNotifications = notifications.slice(0, 10);
+
   return (
     <div className="notification-badge" ref={badgeRef}>
       <button
@@ -55,8 +63,8 @@ export const NotificationBadge = () => {
         <img
           src={notificationBell}
           alt="Notifications"
-          width={22}
-          height={22}
+          width={24}
+          height={24}
         />
         {unreadCount > 0 && (
           <span className="badge">
@@ -81,12 +89,12 @@ export const NotificationBadge = () => {
           </div>
 
           <div className="notifications-list">
-            {notifications.length === 0 ? (
+            {displayedNotifications.length === 0 ? (
               <div className="empty-state">
                 <p>No notifications yet</p>
               </div>
             ) : (
-              notifications.map((notification) => (
+              displayedNotifications.map((notification) => (
                 <div
                   key={notification.id}
                   className={`notification-item ${!notification.isRead ? "unread" : ""}`}
@@ -111,6 +119,14 @@ export const NotificationBadge = () => {
                 </div>
               ))
             )}
+          </div>
+          <div className="view-all-notifications">
+            <Link to="/notifications" onClick={() => setShowPanel(false)}>
+              View All Notifications
+              {notifications.length > 10 && (
+                <span className="notification-count"> ({notifications.length})</span>
+              )}
+            </Link>
           </div>
         </div>
       )}

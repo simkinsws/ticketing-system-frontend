@@ -23,7 +23,7 @@ export function CustomerChatExecuter({
         className="button-chat"
         aria-label="Open support chat"
       >
-        <img src={chatIcon} alt="Chat Icon" />
+        <img src={chatIcon} alt="Chat Icon"  className="chat-icon"/>
         {showBadge && (
           <Badge bg="danger" pill className="badge">
             {unread}

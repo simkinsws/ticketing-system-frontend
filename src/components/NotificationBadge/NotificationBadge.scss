@@ -38,10 +38,9 @@
   .notifications-panel {
     position: absolute;
     right: 0;
-    top: 100%;
-    margin-top: 8px;
-    width: 360px;
-    max-height: 500px;
+    top: 45px;
+    width: 375px;
+    max-height: 540px;
     background: var(--bg-main);
     border-radius: 8px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
@@ -55,14 +54,16 @@
       justify-content: space-between;
       align-items: center;
       padding: 16px;
+      height: 72px;
       border-bottom: 1px solid var(--border-main);
       background-color: var(--bg-secondary);
 
       h3 {
         margin: 0;
-        font-size: 16px;
         font-weight: 600;
         color: var(--text-heading);
+        font-size: 18px;
+        font-family: var(--font-primary);
       }
 
       .mark-all-btn {
@@ -70,7 +71,8 @@
         border: none;
         color: var(--accent-indigo);
         cursor: pointer;
-        font-size: 12px;
+        font-size: 14px;
+        font-family: var(--font-primary);
         font-weight: 500;
         padding: 4px 8px;
         border-radius: 4px;
@@ -86,6 +88,25 @@
       }
     }
 
+    .view-all-notifications {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0px 0px 10px 10px;
+      border-top: 1px solid var(--border-main);
+      background-color: var(--bg-secondary);
+      a {
+        text-decoration: none;
+        color: var(--accent-indigo);
+        font-weight: 500;
+        font-size: 14px;
+        font-family: var(--font-primary);
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
     .notifications-list {
       flex: 1;
       overflow-y: auto;
@@ -99,7 +120,6 @@
         color: var(--text-muted);
         font-size: 14px;
       }
-
       .notification-item {
         padding: 12px 16px;
         border-bottom: 1px solid var(--border-main);
@@ -109,7 +129,9 @@
         gap: 12px;
         background-color: var(--bg-main);
         transition: background-color 0.2s;
-
+        &:last-child {
+          border-bottom: none;
+        }
         &:hover {
           background-color: var(--bg-secondary);
         }
@@ -129,16 +151,18 @@
 
           h4 {
             margin: 0 0 4px 0;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
+            font-family: var(--font-primary);
             color: var(--text-heading);
             word-break: break-word;
           }
 
           p {
             margin: 0 0 4px 0;
-            font-size: 12px;
-            color: var(--text-body);
+            font-size: 14px;
+            font-family: var(--font-primary);
+            color: var(--text-muted);
             line-height: 1.4;
             word-break: break-word;
           }

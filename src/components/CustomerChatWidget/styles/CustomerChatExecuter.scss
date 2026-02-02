@@ -12,6 +12,9 @@
     background-color: var(--btn-primary-bg);
     border: unset;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    animation: live-pulse 2s ease-out infinite;
+    will-change: box-shadow;
+    position: relative;
     &:active {
       background-color: var(--btn-primary-bg);
     }
@@ -30,6 +33,22 @@
       font-family: var(--font-primary);
       font-weight: 600;
     }
+  }
+}
+
+@keyframes live-pulse {
+  0% {
+    box-shadow: 0 0 0 0
+      color-mix(in srgb, var(--btn-primary-hover) 45%, transparent);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px
+      color-mix(in srgb, var(--btn-primary-hover) 0%, transparent);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 transparent;
   }
 }
 

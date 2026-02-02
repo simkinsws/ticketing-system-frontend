@@ -10,10 +10,14 @@
   .actions {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 15px;
     .user-info {
       display: flex;
       align-self: center;
+      .user-avatar {
+        display: flex;
+        align-self: center;
+      }
       .user-details {
         display: flex;
         flex-direction: column;
