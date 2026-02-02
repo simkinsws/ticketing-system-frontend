@@ -1,5 +1,5 @@
-import { http } from "../core/http";
 import type { NotificationDto, UnreadCountResponse } from "../../types/notifications";
+import { http } from "../core/http";
 
 export type { NotificationDto, UnreadCountResponse };
 
