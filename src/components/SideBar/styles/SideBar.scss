@@ -1,0 +1,22 @@
+.sidebar {
+  grid-row: 1 / -1;
+  grid-column: 1;
+  overflow-y: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    grid-row: 1;
+    grid-column: 1;
+    position: fixed;
+    left: -250px;
+    width: 250px;
+    height: 100vh;
+    z-index: 100;
+    transition: left 0.3s ease;
+
+    &.open {
+      left: 0;
+    }
+  }
+}

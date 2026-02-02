@@ -10,33 +10,47 @@ const INBOX_KEY = [adminInboxKey] as const;
 const MSG_KEY = (conversationId: string) => [messageKey(conversationId)] as const;
 
 let connection: signalR.HubConnection | null = null;
+let notificationConnection: signalR.HubConnection | null = null;
 const joinedConversations = new Set<string>();
 
 // Dedupes concurrent start calls
 let starting: Promise<signalR.HubConnection> | null = null;
+let notificationStarting: Promise<signalR.HubConnection> | null = null;
 
 // Ensure we register handlers only once per connection instance
 let handlersRegistered = false;
+let notificationHandlersRegistered = false;
 
 const hubBase = import.meta.env.VITE_SIGNALR_URL?.trim() || "";
 const hubUrl = hubBase ? `${hubBase}/hubs/support` : "/hubs/support";
+const notificationHubUrl = hubBase ? `${hubBase}/hubs/notifications` : "/hubs/notifications";
 
-function ensureConnection(): signalR.HubConnection {
-  if (connection) return connection;
-
+function createSignalRConnection(url: string): signalR.HubConnection {
   const token = localStorage.getItem("auth-token");
 
-  connection = new signalR.HubConnectionBuilder()
-    .withUrl(hubUrl, {
+  return new signalR.HubConnectionBuilder()
+    .withUrl(url, {
       accessTokenFactory: () => token || "",
       skipNegotiation: false,
       transport: signalR.HttpTransportType.WebSockets | signalR.HttpTransportType.LongPolling,
     })
-    .withAutomaticReconnect()
+    .withAutomaticReconnect([0, 0, 5000, 10000, 30000])
+    .configureLogging(signalR.LogLevel.Information)
     .build();
+}
 
+function ensureConnection(): signalR.HubConnection {
+  if (connection) return connection;
+  connection = createSignalRConnection(hubUrl);
   handlersRegistered = false;
   return connection;
+}
+
+function ensureNotificationConnection(): signalR.HubConnection {
+  if (notificationConnection) return notificationConnection;
+  notificationConnection = createSignalRConnection(notificationHubUrl);
+  notificationHandlersRegistered = false;
+  return notificationConnection;
 }
 
 function registerHandlersOnce(conn: signalR.HubConnection) {
@@ -220,6 +234,67 @@ export function getSignalRConnection(): signalR.HubConnection | null {
   return connection;
 }
 
+/**
+ * Get the notification hub connection for real-time notification updates
+ */
+export function getNotificationConnection(): signalR.HubConnection | null {
+  return notificationConnection;
+}
+
+/**
+ * Ensure the notification hub is connected
+ */
+export async function startNotificationSignalR(): Promise<signalR.HubConnection> {
+  // If already connected, return immediately
+  if (notificationConnection?.state === signalR.HubConnectionState.Connected)
+    return notificationConnection;
+
+  // Deduplicate concurrent calls
+  if (notificationStarting) return notificationStarting;
+
+  const ui = useUiStore.getState();
+  ui.connection.setLoading();
+
+  const conn = ensureNotificationConnection();
+  
+  // Register lifecycle handlers only once
+  if (!notificationHandlersRegistered) {
+    conn.onreconnecting(() => ui.connection.setReconnecting());
+    conn.onreconnected(() => ui.connection.setConnected());
+    conn.onclose(() => ui.connection.setDisconnected());
+    notificationHandlersRegistered = true;
+  }
+
+  notificationStarting = (async () => {
+    try {
+      // Only start if currently disconnected
+      if (conn.state === signalR.HubConnectionState.Disconnected) {
+        await conn.start();
+      }
+      ui.connection.setConnected();
+      return conn;
+    } catch (err) {
+      console.error("Notification SignalR start failed:", err);
+      ui.connection.setDisconnected();
+
+      // allow future retries
+      try {
+        conn.stop().catch(() => {});
+      } catch {
+        // ignored
+      }
+      notificationConnection = null;
+      notificationHandlersRegistered = false;
+
+      throw err;
+    } finally {
+      notificationStarting = null;
+    }
+  })();
+
+  return notificationStarting;
+}
+
 async function requireConnected(): Promise<signalR.HubConnection> {
   const conn = await startSignalR();
   if (conn.state !== signalR.HubConnectionState.Connected) {
@@ -241,13 +316,26 @@ export async function leaveConversation(conversationId: string) {
 }
 
 export async function stopSignalR() {
-  if (!connection) return;
-  try {
-    await connection.stop();
-  } finally {
-    useUiStore.getState().connection.setDisconnected();
-    connection = null;
-    handlersRegistered = false;
-    starting = null;
+  if (connection) {
+    try {
+      await connection.stop();
+    } finally {
+      connection = null;
+      handlersRegistered = false;
+      starting = null;
+    }
   }
+
+  if (notificationConnection) {
+    try {
+      await notificationConnection.stop();
+    } finally {
+      notificationConnection = null;
+      notificationHandlersRegistered = false;
+      notificationStarting = null;
+    }
+  }
+
+  useUiStore.getState().connection.setDisconnected();
 }
+

@@ -20,6 +20,12 @@ export default defineConfig({
         secure: false,
         ws: true,
       },
+      "/hubs/notifications": {
+        target: "https://localhost:54166",
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+      },
       "/api": {
         target: "https://localhost:54166",
         changeOrigin: true,
@@ -31,6 +37,12 @@ export default defineConfig({
     port: 5173,
     proxy: {
       "/hubs/support": {
+        target: "https://localhost:54166",
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+      },
+      "/hubs/notifications": {
         target: "https://localhost:54166",
         changeOrigin: true,
         secure: false,
