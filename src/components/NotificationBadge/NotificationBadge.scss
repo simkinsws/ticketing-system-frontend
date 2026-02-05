@@ -201,3 +201,23 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .notification-badge {
+    .notifications-panel {
+      position: fixed;
+      top: 56px;
+      left: 0;
+      right: 0;
+      width: 100vw;
+      height: calc(100vh - 56px);
+      max-height: none;
+      border-radius: 0;
+
+      .notifications-list {
+        max-height: none;
+        flex: 1;
+      }
+    }
+  }
+}

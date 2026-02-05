@@ -87,7 +87,6 @@ export const NotificationBadge = () => {
               </button>
             )}
           </div>
-
           <div className="notifications-list">
             {displayedNotifications.length === 0 ? (
               <div className="empty-state">
@@ -124,7 +123,10 @@ export const NotificationBadge = () => {
             <Link to="/notifications" onClick={() => setShowPanel(false)}>
               View All Notifications
               {notifications.length > 10 && (
-                <span className="notification-count"> ({notifications.length})</span>
+                <span className="notification-count">
+                  {" "}
+                  ({notifications.length})
+                </span>
               )}
             </Link>
           </div>

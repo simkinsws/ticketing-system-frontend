@@ -71,9 +71,12 @@
 
 @media (max-width: 768px) {
   .chat-window {
-    width: 100%;
     bottom: 0px;
     right: auto;
+    width: 100dvw;
+    height: 100dvh;
+    max-width: unset;
+    max-height: unset;
     .card {
       display: flex;
       .header {
