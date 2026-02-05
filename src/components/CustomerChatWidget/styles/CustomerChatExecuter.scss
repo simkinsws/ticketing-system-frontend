@@ -58,9 +58,13 @@
     right: 10px;
     bottom: 10px;
 
-    .button {
+    .button-chat {
       width: 48px;
       height: 48px;
+      .chat-icon {
+        width: 26px;
+        height: 26px;
+      }
     }
   }
 }
