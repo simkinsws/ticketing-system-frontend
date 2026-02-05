@@ -99,11 +99,15 @@ export const NotificationBadge = () => {
                   className={`notification-item ${!notification.isRead ? "unread" : ""}`}
                 >
                   <div className="notification-content">
-                    <h4>{notification.title}</h4>
+                    <div className="title-timestamp">
+                      <h4>{notification.title}</h4>
+                      <span className="timestamp">
+                        {formatDistanceToNow(
+                          new Date(notification.createdAtUtc),
+                        )}
+                      </span>
+                    </div>
                     <p>{notification.message}</p>
-                    <span className="timestamp">
-                      {formatDistanceToNow(new Date(notification.createdAtUtc))}
-                    </span>
                   </div>
                   {!notification.isRead && (
                     <button

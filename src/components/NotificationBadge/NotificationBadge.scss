@@ -148,7 +148,12 @@
         .notification-content {
           flex: 1;
           min-width: 0;
-
+          .title-timestamp {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+          }
           h4 {
             margin: 0 0 4px 0;
             font-size: 14px;
