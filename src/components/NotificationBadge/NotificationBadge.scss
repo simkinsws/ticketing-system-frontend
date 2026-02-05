@@ -214,9 +214,8 @@
       top: 56px;
       left: 0;
       right: 0;
-      width: 100svw;
-      //   height: calc(100svh - 56px);
-      height: 100svh;
+      width: 100dvw;
+      height: calc(100svh - 56px);
       max-height: none;
       border-radius: 0;
 
