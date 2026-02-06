@@ -25,10 +25,32 @@ export default function App() {
   const location = useLocation();
   const hideChatWidget = location.pathname === "/unauthorized";
   const initTheme = useUiStore((s) => s.theme.initTheme);
+  const themeMode = useUiStore((s) => s.themeMode);
+
+  const isAuthRoute = [
+    "/login",
+    "/register",
+    "/forgot-password",
+    "/reset-password",
+    "/confirm-email",
+  ].includes(location.pathname);
 
   useEffect(() => {
     initTheme();
   }, [initTheme]);
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+
+    if (isAuthRoute) {
+      document.documentElement.setAttribute("data-theme", "light");
+      document.documentElement.setAttribute("dark-theme", "light");
+      return;
+    }
+
+    document.documentElement.setAttribute("data-theme", themeMode);
+    document.documentElement.setAttribute("dark-theme", themeMode);
+  }, [isAuthRoute, themeMode]);
 
   if (isPending) {
     return (
