@@ -12,13 +12,13 @@
       background: var(--bg-chat-customer);
       box-shadow: none;
       .text {
-        color: var(----text-heading);
+        color: var(--text-heading);
         font-family: var(--font-primary);
         font-weight: 500;
         font-size: 14px;
       }
       .timestamp {
-        color: var(----text-heading);
+        color: var(--text-muted);
         font-family: var(--font-primary);
       }
     }
@@ -40,14 +40,14 @@
 
     .text {
       font-size: 0.875rem;
-      color: var(----text-heading);
+      color: var(--text-heading);
       font-family: var(--font-primary);
       font-weight: 500;
       font-size: 14px;
     }
 
     .timestamp {
-      color: var(--bs-muted);
+      color: var(--text-muted);
       font-size: 11px;
       margin-top: 4px;
       font-family: var(--font-primary);

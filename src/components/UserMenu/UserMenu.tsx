@@ -3,9 +3,14 @@ import { Link } from "react-router";
 import { useAuthStore } from "../../store/authStore";
 import { useUiStore } from "../../store/uiStore";
 import userAvatar from "../../assets/user-avatar-default.png";
-import userIcon from "../../assets/user-icon.svg";
-import themeIcon from "../../assets/info-icon.svg";
-import logoutIcon from "../../assets/logout-icon.svg";
+import lightProfileIcon from "../../assets/light-theme-my-profile.svg";
+import darkProfileIcon from "../../assets/dark-theme-my-profile.svg";
+import lightThemeIcon from "../../assets/light-theme-pick-mode.svg";
+import darkThemeIcon from "../../assets/dark-theme-pick-mode.svg";
+import lightSettingsIcon from "../../assets/light-theme-settings.svg";
+import darkSettingsIcon from "../../assets/dark-theme-settings.svg";
+import lightLogoutIcon from "../../assets/light-theme-logout.svg";
+import darkLogoutIcon from "../../assets/dark-theme-logout.svg";
 import "./UserMenu.scss";
 import lightThemeArrowDown from "../../assets/light-theme-arrow-down.svg";
 import darkThemeArrowDown from "../../assets/dark-theme-arrow-down.svg";
@@ -91,14 +96,37 @@ export const UserMenu = () => {
               onClick={() => setOpen(false)}
             >
               <span className="menu-item-left">
-                <img className="menu-icon" src={userIcon} alt="Profile" />
+                <img
+                  className="menu-icon"
+                  src={
+                    themeMode === "dark" ? darkProfileIcon : lightProfileIcon
+                  }
+                  alt="Profile"
+                />
                 <span>My Profile</span>
               </span>
             </Link>
 
+            <button className="menu-item" onClick={() => setOpen(false)}>
+              <span className="menu-item-left">
+                <img
+                  className="menu-icon"
+                  src={
+                    themeMode === "dark" ? darkSettingsIcon : lightSettingsIcon
+                  }
+                  alt="Settings"
+                />
+                <span>Settings</span>
+              </span>
+            </button>
+
             <div className="menu-item theme-item">
               <span className="menu-item-left">
-                <img className="menu-icon" src={themeIcon} alt="Theme" />
+                <img
+                  className="menu-icon"
+                  src={themeMode === "dark" ? darkThemeIcon : lightThemeIcon}
+                  alt="Theme"
+                />
                 <span>Theme Mode</span>
               </span>
               <div className="theme-toggle-group">
@@ -119,7 +147,11 @@ export const UserMenu = () => {
 
             <button className="menu-item danger" onClick={logout}>
               <span className="menu-item-left">
-                <img className="menu-icon" src={logoutIcon} alt="Logout" />
+                <img
+                  className="menu-icon"
+                  src={themeMode === "dark" ? darkLogoutIcon : lightLogoutIcon}
+                  alt="Logout"
+                />
                 <span>Logout</span>
               </span>
             </button>

@@ -1,7 +1,9 @@
 import { useState, useRef } from "react";
 import "./styles/MessageComposer.scss";
 import sendIcon from "../../assets/chat-send-button.svg";
+import sendDarkIcon from "../../assets/dark-theme-send.svg";
 import sendAdminIcon from "../../assets/admin-send.svg";
+import { useUiStore } from "../../store/uiStore";
 import Form from "react-bootstrap/Form";
 export function MessageComposer({
   onSend,
@@ -13,6 +15,7 @@ export function MessageComposer({
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
   const customerInputRef = useRef<HTMLDivElement>(null);
+  const themeMode = useUiStore((s) => s.themeMode);
 
   async function send() {
     const trimmed = text.trim();
@@ -59,7 +62,7 @@ export function MessageComposer({
           aria-label="Message input"
         />
         <img
-          src={sendIcon}
+          src={themeMode === "dark" ? sendDarkIcon : sendIcon}
           alt="Send"
           onClick={send}
           className="send-button"

@@ -33,6 +33,7 @@ export default function App() {
     "/forgot-password",
     "/reset-password",
     "/confirm-email",
+    "/admin/chat"
   ].includes(location.pathname);
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 .message-composer {
   background-color: var(--bs-light);
-  border-top: 1px solid var(--bs-border-color);
+  border-top: 1px solid var(--border-input);
   padding: 1rem;
   display: flex;
   gap: 0.5rem;
@@ -11,7 +11,7 @@
     }
   }
   &.customer {
-    background-color: var(--text-white);
+    background-color: var(--bg-main);
     .input {
       flex: 1;
       height: auto;
@@ -29,6 +29,7 @@
       font-family: var(--font-primary);
       max-height: 100px;
       background-color: var(--bg-page);
+      color: var(--text-heading);
     }
   }
 }

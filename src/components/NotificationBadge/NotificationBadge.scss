@@ -10,13 +10,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
 
     &:hover {
       background-color: var(--bg-secondary);
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
       border-radius: 8px;
     }
 
@@ -36,10 +36,6 @@
       justify-content: center;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
       animation: badge-pulse 1.6s ease-out infinite;
-    }
-
-    img {
-        
     }
   }
 
@@ -278,7 +274,7 @@
       height: calc(100svh - 56px);
       max-height: none;
       border-radius: 0;
-
+      z-index: 11111;
       .notifications-list {
         max-height: none;
         flex: 1;
