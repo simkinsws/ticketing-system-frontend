@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   markNotificationAsRead,
   markAllNotificationsAsRead,
+  deleteNotification,
 } from "../../api/notifications/endpoints";
 import {
   notificationsQueryKey,
@@ -48,6 +49,36 @@ export const useMarkAllAsReadMutation = () => {
       );
 
       qc.setQueryData([unreadCountQueryKey], 0);
+    },
+  });
+};
+
+export const useDeleteNotificationMutation = () => {
+  const qc = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteNotification,
+    onSuccess: (_, notificationId) => {
+      qc.setQueryData(
+        [notificationsQueryKey],
+        (old: NotificationDto[] | undefined) => {
+          if (!old) return old;
+          const target = old.find((n) => n.id === notificationId);
+          const next = old.filter((n) => n.id !== notificationId);
+
+          if (target && !target.isRead) {
+            qc.setQueryData(
+              [unreadCountQueryKey],
+              (count: number | undefined) => {
+                if (count === undefined) return count;
+                return Math.max(0, count - 1);
+              },
+            );
+          }
+
+          return next;
+        },
+      );
     },
   });
 };

@@ -1,6 +1,8 @@
 import { Route, Routes, useLocation } from "react-router";
+import { useEffect } from "react";
 import { useAuthInit } from "./hooks/state/useAuthInit";
 import { useAuthStore } from "./store/authStore";
+import { useUiStore } from "./store/uiStore";
 import { RequireRole } from "./routes/RequireRole";
 import { RootRedirect } from "./routes/RootRedirect";
 import { ProtectedLayout } from "./layouts/ProtectedLayout";
@@ -22,6 +24,11 @@ export default function App() {
   const roles = useAuthStore((s) => s.roles);
   const location = useLocation();
   const hideChatWidget = location.pathname === "/unauthorized";
+  const initTheme = useUiStore((s) => s.theme.initTheme);
+
+  useEffect(() => {
+    initTheme();
+  }, [initTheme]);
 
   if (isPending) {
     return (

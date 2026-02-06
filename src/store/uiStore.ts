@@ -6,6 +6,17 @@ export type ConnStatus =
   | "disconnected"
   | "reconnecting";
 
+export type ThemeMode = "light" | "dark";
+
+const THEME_KEY = "theme-mode";
+
+const applyTheme = (mode: ThemeMode) => {
+  if (typeof window === "undefined") return;
+  document.documentElement.setAttribute("data-theme", mode);
+  document.documentElement.setAttribute("dark-theme", mode);
+  localStorage.setItem(THEME_KEY, mode);
+};
+
 type UiState = {
   // Admin UI
   selectedConversationId: string | null;
@@ -44,6 +55,14 @@ type UiState = {
   sidebar: {
     toggleSidebar: () => void;
     setSidebarOpen: (open: boolean) => void;
+  };
+
+  // Theme
+  themeMode: ThemeMode;
+  theme: {
+    setTheme: (mode: ThemeMode) => void;
+    toggleTheme: () => void;
+    initTheme: () => void;
   };
 };
 
@@ -86,5 +105,26 @@ export const useUiStore = create<UiState>((set) => ({
   sidebar: {
     toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
     setSidebarOpen: (open) => set({ sidebarOpen: open }),
+  },
+
+  // Theme
+  themeMode: "light",
+  theme: {
+    setTheme: (mode) => {
+      applyTheme(mode);
+      set({ themeMode: mode });
+    },
+    toggleTheme: () =>
+      set((s) => {
+        const next: ThemeMode = s.themeMode === "dark" ? "light" : "dark";
+        applyTheme(next);
+        return { themeMode: next };
+      }),
+    initTheme: () => {
+      if (typeof window === "undefined") return;
+      const saved = (localStorage.getItem(THEME_KEY) as ThemeMode | null) ?? "light";
+      applyTheme(saved);
+      set({ themeMode: saved });
+    },
   },
 }));

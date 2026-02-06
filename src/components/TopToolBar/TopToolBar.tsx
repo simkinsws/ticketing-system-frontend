@@ -1,17 +1,13 @@
 import { useIsMobile } from "../../hooks/ui/useIsMobile";
 import { useUiStore } from "../../store/uiStore";
-import { useAuthStore } from "../../store/authStore";
 import { NotificationBadge } from "../NotificationBadge/NotificationBadge";
+import { UserMenu } from "../UserMenu/UserMenu";
 import "./styles/TopToolBar.scss";
 import hamburgerMenu from "../../assets/hamburger.svg";
-import userAvatar from "../../assets/user-avatar-default.png";
 
 export const TopToolBar = () => {
   const toggleSidebar = useUiStore((s) => s.sidebar.toggleSidebar);
-  //   const logout = useAuthStore((s) => s.logout);
   const isMobile = useIsMobile();
-  const displayName = useAuthStore((s) => s.displayName);
-  const userEmail = useAuthStore((s) => s.email);
   return (
     <div className="top-nav">
       {isMobile && (
@@ -19,19 +15,7 @@ export const TopToolBar = () => {
       )}
       <div className="actions">
         <NotificationBadge />
-        <div className="user-info">
-          <img
-            className="user-avatar"
-            src={userAvatar}
-            alt="User Avatar"
-            width={40}
-            height={40}
-          />
-          <div className="user-details">
-            <div>{displayName}</div>
-            <div>{userEmail}</div>
-          </div>
-        </div>
+        <UserMenu />
       </div>
     </div>
   );

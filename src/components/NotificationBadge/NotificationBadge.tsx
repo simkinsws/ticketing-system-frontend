@@ -6,10 +6,13 @@ import {
 import {
   useMarkNotificationAsReadMutation,
   useMarkAllAsReadMutation,
+  useDeleteNotificationMutation,
 } from "../../hooks/mutations/useNotificationMutations";
 import { useNotificationListener } from "../../hooks/state/useNotificationListener";
 import { formatDistanceToNow } from "../../utils/dateGrouping";
 import notificationBell from "../../assets/notification-bell.svg";
+import darkBell from "../../assets/bell-dark.svg";
+import { useUiStore } from "../../store/uiStore";
 import "./NotificationBadge.scss";
 import { Link } from "react-router";
 
@@ -22,6 +25,8 @@ export const NotificationBadge = () => {
 
   const markAsReadMutation = useMarkNotificationAsReadMutation();
   const markAllAsReadMutation = useMarkAllAsReadMutation();
+  const deleteNotificationMutation = useDeleteNotificationMutation();
+  const themeMode = useUiStore((s) => s.themeMode);
 
   useNotificationListener();
 
@@ -51,6 +56,10 @@ export const NotificationBadge = () => {
     markAllAsReadMutation.mutate();
   };
 
+  const handleDelete = (notificationId: string) => {
+    deleteNotificationMutation.mutate(notificationId);
+  };
+
   const displayedNotifications = notifications.slice(0, 10);
 
   return (
@@ -61,7 +70,7 @@ export const NotificationBadge = () => {
         aria-label="Toggle notifications"
       >
         <img
-          src={notificationBell}
+          src={themeMode === "dark" ? darkBell : notificationBell}
           alt="Notifications"
           width={24}
           height={24}
@@ -99,26 +108,37 @@ export const NotificationBadge = () => {
                   className={`notification-item ${!notification.isRead ? "unread" : ""}`}
                 >
                   <div className="notification-content">
-                    <div className="title-timestamp">
-                      <h4>{notification.title}</h4>
-                      <span className="timestamp">
-                        {formatDistanceToNow(
-                          new Date(notification.createdAtUtc),
+                    <div className="title-row">
+                      <p className="title">{notification.title}</p>
+                      <div className="notification-actions">
+                        {!notification.isRead && (
+                          <button
+                            className="mark-read-btn"
+                            onClick={() => handleMarkAsRead(notification.id)}
+                            disabled={markAsReadMutation.isPending}
+                            aria-label="Mark as read"
+                          >
+                            ✓
+                          </button>
                         )}
-                      </span>
+                        <button
+                          className="delete-btn"
+                          onClick={() => handleDelete(notification.id)}
+                          disabled={deleteNotificationMutation.isPending}
+                          aria-label="Delete notification"
+                        >
+                          ✕
+                        </button>
+                      </div>
                     </div>
-                    <p>{notification.message}</p>
+                    {notification.subtitle && (
+                      <p className="subtitle">{notification.subtitle}</p>
+                    )}
+                    <p className="message">{notification.message}</p>
+                    <span className="timestamp">
+                      {formatDistanceToNow(new Date(notification.createdAtUtc))}
+                    </span>
                   </div>
-                  {!notification.isRead && (
-                    <button
-                      className="mark-read-btn"
-                      onClick={() => handleMarkAsRead(notification.id)}
-                      disabled={markAsReadMutation.isPending}
-                      aria-label="Mark as read"
-                    >
-                      ✓
-                    </button>
-                  )}
                 </div>
               ))
             )}

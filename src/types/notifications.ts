@@ -1,17 +1,11 @@
-/**
- * Notification types and interfaces
- */
-
-export type NotificationType = "message" | "ticket" | "system" | "alert";
-
 export interface NotificationDto {
   id: string;
   title: string;
+  subtitle?: string;
   message: string;
-  type?: NotificationType;
   isRead: boolean;
   createdAtUtc: string;
-  linkedEntityId?: string; // Could be ticket ID, conversation ID, etc.
+  linkedEntityId?: string;
 }
 
 export interface UnreadCountResponse {

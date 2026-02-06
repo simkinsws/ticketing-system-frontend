@@ -76,15 +76,16 @@
   --text-heading: #ffffff;
   --text-body: #d1d5db;
   --text-secondary: #9ca3af;
-  --text-muted: #6b7280;
+  --text-muted: #9ca3af;
+  --text-white: #f9fafb;
 
   /* Borders */
   --border-main: #374151;
   --border-input: #4b5563;
 
   /* Buttons */
-  --btn-primary-bg: #4f46e5;
-  --btn-primary-hover: #4338ca;
+  --btn-primary-bg: #2b3442;
+  --btn-primary-hover: #4e5663;
 
   --btn-secondary-bg: #374151;
   --btn-secondary-hover: #4b5563;
@@ -108,14 +109,19 @@
   --badge-warning-border: #b45309;
 
   --badge-error-bg: rgba(127, 29, 29, 0.5);
-  --badge-error-text: #fca5a5;
-  --badge-error-border: #991b1b;
+  --badge-error-text: #fecaca;
+  --badge-error-border: #7f1d1d;
+
+  --badge-notification-bg: #f87171;
+  --badge-background-light-blue: rgba(30, 58, 138, 0.25);
 
   --badge-info-bg: rgba(30, 58, 138, 0.5);
-  --badge-info-text: #60a5fa;
+  --badge-info-text: #2b3442;
   --badge-info-border: #1d4ed8;
 
   --badge-primary-bg: rgba(49, 46, 129, 0.5);
   --badge-primary-text: #a5b4fc;
   --badge-primary-border: #4338ca;
+
+  --accent-indigo: #ffffff;
 }
