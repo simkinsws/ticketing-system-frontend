@@ -10,7 +10,12 @@
     cursor: pointer;
     padding: 4px 6px;
     border-radius: 6px;
-
+    .user-caret {
+      transition: transform 0.3s ease;
+      &.open {
+        transform: rotate(180deg);
+      }
+    }
     &:hover {
       background-color: var(--bg-secondary);
     }
@@ -75,12 +80,23 @@
   .user-meta-name {
     font-size: 14px;
     font-weight: 600;
+    font-family: var(--font-primary);
+  }
+
+  .user-meta-role {
+    font-weight: 500;
+    background: var(--text-muted);
+    display: flex;
+    align-self: flex-start;
+    border-radius: 10px;
+    padding: 3px 8px;
   }
 
   .user-meta-email,
   .user-meta-role {
     font-size: 12px;
     opacity: 0.9;
+    font-family: var(--font-primary);
   }
 
   .user-menu-actions {
@@ -113,6 +129,30 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    width: 100%;
+    .menu-item-left-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+    .title-menu-item {
+      font-size: 14px;
+      font-weight: 500;
+      font-family: var(--font-primary);
+      display: flex;
+      flex-direction: column;
+      line-height: 20px;
+      .sub-title-menu-item {
+        font-size: 12px;
+        opacity: 0.9;
+        font-weight: 300;
+        line-height: 16px;
+      }
+    }
+    .arrow-right {
+      transform: rotate(270deg);
+    }
   }
 
   .menu-icon {

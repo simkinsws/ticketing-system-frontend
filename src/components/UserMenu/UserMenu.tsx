@@ -11,7 +11,7 @@ import lightSettingsIcon from "../../assets/light-theme-settings.svg";
 import darkSettingsIcon from "../../assets/dark-theme-settings.svg";
 import lightLogoutIcon from "../../assets/light-theme-logout.svg";
 import darkLogoutIcon from "../../assets/dark-theme-logout.svg";
-import "./UserMenu.scss";
+import "./styles/UserMenu.scss";
 import lightThemeArrowDown from "../../assets/light-theme-arrow-down.svg";
 import darkThemeArrowDown from "../../assets/dark-theme-arrow-down.svg";
 
@@ -30,6 +30,10 @@ export const UserMenu = () => {
     if (!roles || roles.length === 0) return "";
     return roles.join(", ");
   }, [roles]);
+
+  const rolePrefix = roleLabel
+    ? `/${roleLabel.trim().toLowerCase()}`
+    : "/customer";
 
   useEffect(() => {
     if (!open) return;
@@ -63,7 +67,7 @@ export const UserMenu = () => {
           <div className="user-email">{email}</div>
         </div>
         <img
-          className="user-caret"
+          className={`user-caret ${open ? "open" : ""}`}
           src={themeMode === "dark" ? darkThemeArrowDown : lightThemeArrowDown}
           alt=""
           aria-hidden="true"
@@ -91,7 +95,7 @@ export const UserMenu = () => {
 
           <div className="user-menu-actions">
             <Link
-              to="/customer/profile"
+              to={`${rolePrefix}/profile`}
               className="menu-item"
               onClick={() => setOpen(false)}
             >
@@ -103,11 +107,33 @@ export const UserMenu = () => {
                   }
                   alt="Profile"
                 />
-                <span>My Profile</span>
+                <div className="menu-item-left-inner">
+                  <div className="title-menu-item">
+                    <span>My Profile</span>
+                    <div className="sub-title-menu-item">
+                      View and edit your profile
+                    </div>
+                  </div>
+                  <img
+                    src={
+                      themeMode === "dark"
+                        ? darkThemeArrowDown
+                        : lightThemeArrowDown
+                    }
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="arrow-right"
+                  />
+                </div>
               </span>
             </Link>
 
-            <button className="menu-item" onClick={() => setOpen(false)}>
+            <Link
+              to={`${rolePrefix}/settings`}
+              className="menu-item"
+              onClick={() => setOpen(false)}
+            >
               <span className="menu-item-left">
                 <img
                   className="menu-icon"
@@ -116,9 +142,27 @@ export const UserMenu = () => {
                   }
                   alt="Settings"
                 />
-                <span>Settings</span>
+                <div className="menu-item-left-inner">
+                  <div className="title-menu-item">
+                    <span>Settings</span>
+                    <div className="sub-title-menu-item">
+                      Manage your preferences
+                    </div>
+                  </div>
+                  <img
+                    src={
+                      themeMode === "dark"
+                        ? darkThemeArrowDown
+                        : lightThemeArrowDown
+                    }
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="arrow-right"
+                  />
+                </div>
               </span>
-            </button>
+            </Link>
 
             <div className="menu-item theme-item">
               <span className="menu-item-left">

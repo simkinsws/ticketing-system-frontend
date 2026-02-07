@@ -15,6 +15,7 @@
     animation: live-pulse 2s ease-out infinite;
     will-change: box-shadow;
     position: relative;
+    border: 1px solid var(--border-main);
     &:active {
       background-color: var(--btn-primary-bg);
     }
