@@ -1,2 +1,122 @@
 .customer-profile-settings-container {
+  padding: 30px;
+  @media screen and (max-width: 768px) {
+    padding: 20px;
+  }
+  .profile-tickets-stats {
+    padding: 5px 30px 15px 30px;
+    .user-details {
+      display: flex;
+      align-items: center;
+      @media screen and (max-width: 768px) {
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+      }
+      .user-avatar {
+        width: 120px;
+        height: 120px;
+        margin-right: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+        @media screen and (max-width: 768px) {
+          width: 90px;
+          height: 90px;
+        }
+        @media screen and (max-width: 475px) {
+            margin-right: 10px;
+        }
+      }
+      .user-details-info {
+        .user-name {
+          font-size: 30px;
+          font-family: var(--font-primary);
+          font-weight: 700;
+          color: var(--text-heading);
+          @media screen and (max-width: 768px) {
+            font-size: 20px;
+          }
+        }
+        .user-email {
+          font-size: 16px;
+          font-family: var(--font-primary);
+          font-weight: 400;
+          color: var(--text-muted);
+          @media screen and (max-width: 768px) {
+            font-size: 14px;
+          }
+        }
+        .user-roles {
+          display: flex;
+          gap: 10px;
+          .role {
+            background-color: var(--badge-primary-bg);
+            color: var(--badge-primary-text);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 16px;
+            margin-top: 8px;
+            display: inline-block;
+          }
+          .verified {
+            background-color: var(--badge-success-bg);
+            color: var(--badge-success-text);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 16px;
+            margin-top: 8px;
+            display: inline-block;
+          }
+        }
+      }
+    }
+    .line-horizontal {
+      height: 1px;
+      width: 100%;
+      background-color: var(--border-main);
+      margin: 20px 0px;
+    }
+    .tickets-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      @media screen and (max-width: 768px) {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      }
+      .ticket-stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .stat-number {
+          font-size: 30px;
+          line-height: 36px;
+          font-weight: 600;
+          font-family: var(--font-primary);
+          color: var(--text-heading);
+          margin: unset;
+          &.total {
+            color: var(--text-heading);
+          }
+          &.open {
+            color: var(--badge-primary-text);
+          }
+          &.resolved {
+            color: var(--badge-success-border);
+          }
+          &.in-progress {
+            color: var(--badge-warning-text);
+          }
+        }
+        .stat-label {
+          font-size: 14px;
+          font-family: var(--font-primary);
+          color: var(--text-muted);
+          margin: unset;
+        }
+      }
+    }
+  }
 }

@@ -1,5 +1,5 @@
 import "./styles/FileUpload.scss";
-import uploadIcon from "../../assets/file-upload.svg";
+import uploadIcon from "../../../assets/file-upload.svg";
 type FileUploadProps = {
   value?: File | null;
   onFileChange?: (file: File | null) => void;

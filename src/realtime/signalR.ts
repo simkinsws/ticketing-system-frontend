@@ -5,6 +5,7 @@ import { useUiStore } from "../store/uiStore";
 import { adminInboxKey } from "../hooks/state/useAdminInbox";
 import { messageKey } from "../hooks/api/useMessages";
 import { customerConversationKey } from "../hooks/api/useCustomerConversation";
+import { getAccessToken } from "../api/core/http";
 
 const INBOX_KEY = [adminInboxKey] as const;
 const MSG_KEY = (conversationId: string) => [messageKey(conversationId)] as const;
@@ -26,7 +27,7 @@ const hubUrl = hubBase ? `${hubBase}/hubs/support` : "/hubs/support";
 const notificationHubUrl = hubBase ? `${hubBase}/hubs/notifications` : "/hubs/notifications";
 
 function createSignalRConnection(url: string): signalR.HubConnection {
-  const token = localStorage.getItem("auth-token");
+  const token = getAccessToken();
 
   return new signalR.HubConnectionBuilder()
     .withUrl(url, {

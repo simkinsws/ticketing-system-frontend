@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { clearAuthToken } from "../api/core/http";
+import { clearAuthTokens } from "../api/core/http";
 
 export type UserRole = "Admin" | "Customer";
 
@@ -64,13 +64,13 @@ export const useAuthStore = create<AuthState>()(
       },
 
       logout: () => {
-        clearAuthToken();
+        clearAuthTokens();
         storage?.removeItem(STORAGE_KEY);
         set({ ...initialAuth, hasHydrated: true });
       },
 
       clearAuth: () => {
-        clearAuthToken();
+        clearAuthTokens();
         storage?.removeItem(STORAGE_KEY);
         set({ ...initialAuth, hasHydrated: true });
       },
