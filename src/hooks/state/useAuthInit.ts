@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { http } from "../../api/core/http";
 import { useAuthStore, type UserRole } from "../../store/authStore";
+import { useAuthMeApi } from "../api/useAuthMeApi";
 import axios from "axios";
 
 export const useAuthInit = () => {
@@ -12,16 +11,7 @@ export const useAuthInit = () => {
   const [initAttempted, setInitAttempted] = useState(false);
 
   const { data, error, isError, isPending, isSuccess, refetch, status } =
-    useQuery({
-      queryKey: ["/auth/me"],
-      queryFn: async () => {
-        const response = await http.get("/auth/me");
-        return response.data;
-      },
-      retry: false,
-      staleTime: Infinity,
-      enabled: false,
-    });
+    useAuthMeApi();
 
   // Phase 1: wait for persist hydration first
   useEffect(() => {
@@ -50,12 +40,7 @@ export const useAuthInit = () => {
     if (status === "pending") return;
 
     if (isSuccess && data) {
-      setAuth(
-        data.userId,
-        data.roles as UserRole[],
-        data.displayName,
-        data.email,
-      );
+      setAuth(data.id, data.roles as UserRole[], data.displayName, data.email);
       return;
     }
 
