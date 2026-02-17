@@ -18,6 +18,7 @@ export type RegisterFormInputs = {
   email: string;
   password: string;
   displayName: string;
+  phoneNumber: string;
   confirmPassword?: string;
 };
 
@@ -44,6 +45,7 @@ export const Register = () => {
       email: "",
       password: "",
       displayName: "",
+      phoneNumber: "",
       confirmPassword: "",
     },
   });
@@ -182,6 +184,17 @@ export const Register = () => {
               },
             })}
             error={errors.email}
+          />
+          <FormInput
+            label="Phone number"
+            id="phoneNumber"
+            type="tel"
+            icon={userIcon}
+            placeholder="+1 555 123 4567"
+            register={register("phoneNumber", {
+              required: "Phone number is required",
+            })}
+            error={errors.phoneNumber}
           />
           <FormInput
             label="Password"
