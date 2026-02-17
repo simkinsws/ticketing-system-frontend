@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { clearAuthTokens } from "../api/core/http";
+import { queryClient } from "../config/queryClient";
 
 export type UserRole = "Admin" | "Customer";
 
@@ -65,12 +66,14 @@ export const useAuthStore = create<AuthState>()(
 
       logout: () => {
         clearAuthTokens();
+        queryClient.clear(); // Clear all cached queries
         storage?.removeItem(STORAGE_KEY);
         set({ ...initialAuth, hasHydrated: true });
       },
 
       clearAuth: () => {
         clearAuthTokens();
+        queryClient.clear(); // Clear all cached queries
         storage?.removeItem(STORAGE_KEY);
         set({ ...initialAuth, hasHydrated: true });
       },
