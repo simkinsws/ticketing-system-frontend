@@ -15,7 +15,7 @@ import NotFound from "./pages/Auth/NotFound";
 import BasicTable from "./components/shared/Table/BasicTable";
 import AdminSupportChat from "./pages/Admin/AdminSupportChat";
 import { CustomerChatWidget } from "./components/CustomerChatWidget/CustomerChatWidget";
-import { CustomerProfileSettings } from "./pages/Customer/CustomerProfileSettings";
+import { CustomerProfile } from "./pages/Customer/CustomerProfile";
 import loaderWebp from "./assets/ticket_loader.webp";
 import "./App.css";
 export default function App() {
@@ -33,7 +33,7 @@ export default function App() {
     "/forgot-password",
     "/reset-password",
     "/confirm-email",
-    "/admin/chat"
+    "/admin/chat",
   ].includes(location.pathname);
 
   useEffect(() => {
@@ -78,17 +78,14 @@ export default function App() {
               path="/customer/dashboard"
               element={<div>Customer Dashboard</div>}
             />
-            <Route
-              path="/customer/profile"
-              element={<CustomerProfileSettings />}
-            />
+            <Route path="/customer/profile" element={<CustomerProfile />} />
           </Route>
 
           <Route element={<RequireRole allowedRoles={["Admin"]} />}>
             <Route path="/admin/dashboard" element={<BasicTable />} />
           </Route>
         </Route>
-        
+
         <Route element={<RequireRole allowedRoles={["Admin"]} />}>
           <Route path="/admin/chat" element={<AdminSupportChat />} />
         </Route>

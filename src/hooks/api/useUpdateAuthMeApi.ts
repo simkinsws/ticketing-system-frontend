@@ -10,9 +10,8 @@ export const useUpdateAuthMeApi = () => {
       const response = await http.patch<AuthMeResponse>("/auth/me", updates);
       return response.data;
     },
-    onSuccess: () => {
-      // Invalidate cache so next fetch gets fresh data
-      queryClient.invalidateQueries({ queryKey: ["/auth/me"] });
+    onSuccess: (data) => {
+      queryClient.setQueryData(["/auth/me"], data);
     },
   });
 };

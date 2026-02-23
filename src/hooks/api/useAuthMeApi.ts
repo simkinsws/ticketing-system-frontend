@@ -10,6 +10,6 @@ export const useAuthMeApi = () => {
       return response.data;
     },
     retry: 1,
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: Infinity, // Cache indefinitely once fetched
   });
 };

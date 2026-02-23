@@ -1,4 +1,4 @@
-.customer-profile-settings-container {
+.customer-profile-container {
   padding: 30px;
   @media screen and (max-width: 768px) {
     padding: 20px;
@@ -24,7 +24,7 @@
           height: 90px;
         }
         @media screen and (max-width: 475px) {
-            margin-right: 10px;
+          margin-right: 10px;
         }
       }
       .user-details-info {
@@ -115,6 +115,77 @@
           font-family: var(--font-primary);
           color: var(--text-muted);
           margin: unset;
+        }
+      }
+    }
+  }
+
+  .profile-info {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    @media screen and (max-width: 1024px) {
+      flex-direction: column;
+    }
+    .profile-info-cards {
+      &.main-col {
+        flex: 7;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        @media screen and (max-width: 1024px) {
+          flex: 1 1 100%;
+          display: contents;
+        }
+      }
+      &.side-col {
+        flex: 3;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        @media screen and (max-width: 1024px) {
+          flex: 1 1 100%;
+          display: contents;
+        }
+      }
+      .card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 12px;
+        padding: 20px;
+        font-family: var(--font-primary);
+        height: auto;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        .profile-info-title {
+          font-size: 18px;
+          font-weight: 600;
+          color: var(--text-heading);
+          margin-bottom: 12px;
+        }
+        &.card-main {
+          @media screen and (max-width: 1024px) {
+            &:nth-of-type(1) {
+              order: 1;
+            }
+            &:nth-of-type(2) {
+              order: 3;
+            }
+          }
+        }
+        &.card-side {
+          @media screen and (max-width: 1024px) {
+            &:nth-of-type(1) {
+              order: 2;
+            }
+            &:nth-of-type(2) {
+              order: 4;
+            }
+            &:nth-of-type(3) {
+              order: 5;
+            }
+          }
         }
       }
     }

@@ -21,6 +21,11 @@ export type AuthMeResponse = {
   emailConfirmed: boolean;
   phoneNumber: string;
   phoneNumberConfirmed: boolean;
+  timezone: string;
+  language: string;
+  timeFormat: string;
+  dateFormat: string;
+  formattedCurrentTime: string;
 };
 
 export type UpdateAuthMeRequest = {
@@ -30,4 +35,8 @@ export type UpdateAuthMeRequest = {
   country: string;
   city: string;
   street: string;
+  timezone: string;
+  language: string;
+  timeFormat: string;
+  dateFormat: string;
 };
