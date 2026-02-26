@@ -9,7 +9,9 @@ export const useAuthMeApi = () => {
       const response = await http.get<AuthMeResponse>("/auth/me");
       return response.data;
     },
-    retry: 1,
+    retry: false, // Don't retry on auth endpoints
     staleTime: Infinity, // Cache indefinitely once fetched
+    throwOnError: false, // Handle errors gracefully
   });
 };
+

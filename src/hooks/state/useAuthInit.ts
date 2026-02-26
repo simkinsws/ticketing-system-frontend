@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useAuthStore, type UserRole } from "../../store/authStore";
 import { useAuthMeApi } from "../api/useAuthMeApi";
+import { useNavigate } from "react-router";
 import axios from "axios";
 
 export const useAuthInit = () => {
+  const navigate = useNavigate();
   const { setAuth, clearAuth, hasHydrated, isAuthenticated, userId } =
     useAuthStore();
 
@@ -54,9 +56,11 @@ export const useAuthInit = () => {
       // ✅ Only clear auth on real "not authenticated"
       if (statusCode === 401 || statusCode === 403) {
         clearAuth();
+        // Redirect to login after clearing auth
+        setTimeout(() => navigate("/login", { replace: true }), 0);
       }
     }
-  }, [status, isSuccess, isError, data, error, setAuth, clearAuth]);
+  }, [status, isSuccess, isError, data, error, setAuth, clearAuth, navigate]);
 
   const initializing = !hasHydrated || (initAttempted && isPending);
   return { isPending: initializing };

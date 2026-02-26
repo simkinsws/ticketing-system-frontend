@@ -17,6 +17,12 @@ export const SideBar = () => {
   const isMobile = useIsMobile();
   const themeMode = useUiStore((s) => s.themeMode);
 
+  const handleNavClick = () => {
+    if (isMobile && sidebarOpen) {
+      toggleSidebar();
+    }
+  };
+
   return (
     <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
       <div className="sidebar-header">
@@ -30,7 +36,12 @@ export const SideBar = () => {
           <span className="sidebar-subtitle">Support System</span>
         </div>
         {isMobile && (
-          <img src={closeSidebarIcon} alt="Close" onClick={toggleSidebar} className="close-sidebar" />
+          <img
+            src={closeSidebarIcon}
+            alt="Close"
+            onClick={toggleSidebar}
+            className="close-sidebar"
+          />
         )}
       </div>
       <section className="sidebar-links">
@@ -39,6 +50,7 @@ export const SideBar = () => {
             `sidebar-link${isActive ? " active" : ""}`
           }
           to="/customer/dashboard"
+          onClick={handleNavClick}
         >
           <img
             className="sidebar-link-icon"
@@ -53,6 +65,7 @@ export const SideBar = () => {
             `sidebar-link${isActive ? " active" : ""}`
           }
           to="/customer/tickets"
+          onClick={handleNavClick}
         >
           <img
             className="sidebar-link-icon"
@@ -67,6 +80,7 @@ export const SideBar = () => {
             `sidebar-link${isActive ? " active" : ""}`
           }
           to="/customer/profile"
+          onClick={handleNavClick}
         >
           <img
             className="sidebar-link-icon"

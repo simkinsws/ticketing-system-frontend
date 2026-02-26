@@ -1,11 +1,11 @@
-.customer-profile-container {
+.customerProfileContainer {
   padding: 30px;
   @media screen and (max-width: 768px) {
     padding: 20px;
   }
-  .profile-tickets-stats {
+  .profileTicketsStats {
     padding: 5px 30px 15px 30px;
-    .user-details {
+    .userDetails {
       display: flex;
       align-items: center;
       @media screen and (max-width: 768px) {
@@ -13,7 +13,7 @@
         justify-content: center;
         text-align: center;
       }
-      .user-avatar {
+      .userAvatar {
         width: 120px;
         height: 120px;
         margin-right: 20px;
@@ -27,8 +27,8 @@
           margin-right: 10px;
         }
       }
-      .user-details-info {
-        .user-name {
+      .userDetailsInfo {
+        .userName {
           font-size: 30px;
           font-family: var(--font-primary);
           font-weight: 700;
@@ -37,7 +37,7 @@
             font-size: 20px;
           }
         }
-        .user-email {
+        .userEmail {
           font-size: 16px;
           font-family: var(--font-primary);
           font-weight: 400;
@@ -46,7 +46,7 @@
             font-size: 14px;
           }
         }
-        .user-roles {
+        .userRoles {
           display: flex;
           gap: 10px;
           .role {
@@ -72,25 +72,25 @@
         }
       }
     }
-    .line-horizontal {
+    .lineHorizontal {
       height: 1px;
       width: 100%;
       background-color: var(--border-main);
       margin: 20px 0px;
     }
-    .tickets-stats {
+    .ticketsStats {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
       @media screen and (max-width: 768px) {
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
       }
-      .ticket-stat {
+      .ticketStat {
         display: flex;
         flex-direction: column;
         align-items: center;
 
-        .stat-number {
+        .statNumber {
           font-size: 30px;
           line-height: 36px;
           font-weight: 600;
@@ -106,11 +106,11 @@
           &.resolved {
             color: var(--badge-success-border);
           }
-          &.in-progress {
+          &.inProgress {
             color: var(--badge-warning-text);
           }
         }
-        .stat-label {
+        .statLabel {
           font-size: 14px;
           font-family: var(--font-primary);
           color: var(--text-muted);
@@ -120,7 +120,7 @@
     }
   }
 
-  .profile-info {
+  .profileInfo {
     display: flex;
     gap: 20px;
     width: 100%;
@@ -129,8 +129,8 @@
     @media screen and (max-width: 1024px) {
       flex-direction: column;
     }
-    .profile-info-cards {
-      &.main-col {
+    .profileInfoCards {
+      &.mainCol {
         flex: 7;
         display: flex;
         flex-direction: column;
@@ -140,7 +140,7 @@
           display: contents;
         }
       }
-      &.side-col {
+      &.sideCol {
         flex: 3;
         display: flex;
         flex-direction: column;
@@ -158,13 +158,151 @@
         font-family: var(--font-primary);
         height: auto;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-        .profile-info-title {
+        .profileInfoHeader {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 12px;
+        }
+        .profileInfoTitle {
           font-size: 18px;
           font-weight: 600;
           color: var(--text-heading);
           margin-bottom: 12px;
         }
-        &.card-main {
+        .editButton {
+          background: none;
+          border: none;
+          color: var(--badge-primary-text);
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: 500;
+          padding: 0;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+        .quickActions {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          .quickActionButton {
+            border: unset;
+            outline: unset;
+            background-color: var(--bg-page-secondary);
+            height: auto;
+            min-height: 45px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: var(--font-primary);
+            font-weight: 500;
+            color: var(--text-body);
+            &:hover {
+              background-color: var(--badge-primary-bg);
+              color: var(--badge-primary-text);
+            }
+          }
+        }
+        .profileInfoContent {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          .accountStatusItem {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-body);
+
+            .status {
+              padding: 4px 12px;
+              border-radius: 16px;
+              font-size: 12px;
+              font-weight: 600;
+
+              &.verified {
+                background-color: var(--badge-success-bg);
+                color: var(--badge-success-text);
+              }
+            }
+          }
+          .contactItem {
+            display: flex;
+            gap: 8px;
+            .contactInnerItem {
+              display: flex;
+              flex-direction: column;
+              font-size: 14px;
+              font-weight: 500;
+              color: var(--text-body);
+              .label {
+                font-size: 12px;
+                font-weight: 400;
+              }
+            }
+          }
+          .item {
+            display: flex;
+            flex-direction: column;
+            font-size: 16px;
+            color: var(--text-body);
+            .label {
+              font-size: 14px;
+              color: var(--text-body);
+              margin-bottom: 4px;
+            }
+          }
+        }
+        .recentActivityList {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+        .recentActivityItem {
+          display: flex;
+          align-items: flex-start;
+          gap: 15px;
+        }
+        .recentActivityIcon {
+          flex-shrink: 0;
+        }
+        .recentActivityContent {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        .recentActivityTitle {
+          font-size: 16px;
+          font-weight: 600;
+          color: var(--text-heading);
+        }
+        .recentActivityTime {
+          font-size: 12px;
+          font-weight: 500;
+          color: var(--text-muted);
+          white-space: nowrap;
+        }
+        .recentActivityDescription {
+          font-size: 14px;
+          color: var(--text-body);
+        }
+        .recentActivityEmpty {
+          font-size: 14px;
+          color: var(--text-muted);
+          padding: 6px 0;
+        }
+        .profileDetails {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+          @media screen and (max-width: 768px) {
+            grid-template-columns: 1fr;
+          }
+        }
+        &.cardMain {
           @media screen and (max-width: 1024px) {
             &:nth-of-type(1) {
               order: 1;
@@ -174,7 +312,7 @@
             }
           }
         }
-        &.card-side {
+        &.cardSide {
           @media screen and (max-width: 1024px) {
             &:nth-of-type(1) {
               order: 2;
